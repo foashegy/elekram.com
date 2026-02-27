@@ -3,15 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>الإكرام للتوريدات العامة والتصدير</title>
+  <title>الإكرام للتوريدات العامة والتصدير | AL-EKRAM General Supply & Export</title>
   <style>
     *{margin:0;padding:0;box-sizing:border-box;}
     body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;direction:rtl;background:#f8f9fa;color:#333;}
+    body.en-active{direction:ltr;}
     a{text-decoration:none;color:inherit;}
+
+    /* Language toggle visibility */
+    [data-lang-en]{display:none}
+    body.en-active [data-lang-en]{display:block}
+    body.en-active [data-lang-ar]{display:none}
+    [data-lang-en-i]{display:none}
+    body.en-active [data-lang-en-i]{display:inline}
+    body.en-active [data-lang-ar-i]{display:none}
+
+    /* Language toggle button */
+    .lang-toggle{display:flex;align-items:center;gap:0;border-radius:20px;overflow:hidden;border:2px solid rgba(255,255,255,0.3);}
+    .lang-btn{background:transparent;color:#cdd8e8;border:none;padding:6px 14px;font-size:0.85rem;cursor:pointer;font-weight:600;transition:all .3s;}
+    .lang-btn.active{background:#f0a500;color:#1a3a5c;}
+    .lang-btn:hover:not(.active){background:rgba(255,255,255,0.1);}
+
     nav{background:#1a3a5c;padding:0 30px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.3);}
     .logo{color:#fff;font-size:1.3rem;font-weight:700;padding:15px 0;}
     .logo span{color:#f0a500;}
-    nav ul{list-style:none;display:flex;gap:25px;}
+    .nav-right{display:flex;align-items:center;gap:10px;}
+    nav ul{list-style:none;display:flex;gap:25px;align-items:center;}
     nav ul li a{color:#cdd8e8;font-size:0.95rem;padding:20px 5px;display:block;border-bottom:3px solid transparent;transition:all .3s;}
     nav ul li a:hover{color:#fff;border-bottom-color:#f0a500;}
     .cta-btn{background:#f0a500;color:#1a3a5c!important;padding:10px 20px!important;border-radius:6px;font-weight:700;border-bottom:none!important;}
@@ -39,6 +56,7 @@
     .atxt p{color:#555;line-height:1.8;margin-bottom:15px;}
     .afeats{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:20px;}
     .afeat{background:#f0f7ff;border-right:4px solid #f0a500;padding:15px;border-radius:6px;}
+    body.en-active .afeat{border-right:none;border-left:4px solid #f0a500;}
     .afeat h4{color:#1a3a5c;margin-bottom:5px;font-size:0.95rem;}
     .afeat p{color:#666;font-size:0.85rem;}
     .aimg{background:linear-gradient(135deg,#1a3a5c,#2a5f9e);border-radius:12px;padding:40px;color:#fff;text-align:center;}
@@ -80,7 +98,8 @@
     .fr{display:grid;grid-template-columns:1fr 1fr;gap:15px;}
     .fg{margin-bottom:15px;}
     .fg label{display:block;color:#1a3a5c;font-weight:600;font-size:0.9rem;margin-bottom:6px;}
-    .fg input,.fg select,.fg textarea{width:100%;padding:12px 15px;border:2px solid #e0e0e0;border-radius:8px;font-size:0.9rem;font-family:inherit;direction:rtl;transition:.3s;background:#fafafa;}
+    .fg input,.fg select,.fg textarea{width:100%;padding:12px 15px;border:2px solid #e0e0e0;border-radius:8px;font-size:0.9rem;font-family:inherit;transition:.3s;background:#fafafa;}
+    body.en-active .fg input,body.en-active .fg select,body.en-active .fg textarea{direction:ltr;text-align:left;}
     .fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:#2a5f9e;background:#fff;}
     .fg textarea{height:110px;resize:vertical;}
     .sb{background:#f0a500;color:#1a3a5c;border:none;padding:14px 35px;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;width:100%;transition:.3s;font-family:inherit;}
@@ -95,180 +114,243 @@
     .fco ul li a:hover{color:#f0a500;}
     .fb{border-top:1px solid #1e3a5c;text-align:center;padding:20px;font-size:0.85rem;max-width:1200px;margin:0 auto;}
     .fb span{color:#f0a500;}
-    @media(max-width:900px){.ag,.cg{grid-template-columns:1fr;}.fg2{grid-template-columns:1fr 1fr;}nav ul{display:none;}}
+
+    .mobile-lang{display:none;}
+    @media(max-width:900px){
+      .ag,.cg{grid-template-columns:1fr;}
+      .fg2{grid-template-columns:1fr 1fr;}
+      nav ul{display:none;}
+      .mobile-lang{display:flex;}
+    }
     @media(max-width:600px){.hero h1{font-size:1.8rem;}.fg2{grid-template-columns:1fr;}.fr{grid-template-columns:1fr;}.afeats{grid-template-columns:1fr;}}
   </style>
 </head>
 <body>
+  <!-- NAV -->
   <nav>
-    <div class="logo">الإكرام <span>للتوريدات</span></div>
-    <ul>
-      <li><a href="#home">الرئيسية</a></li>
-      <li><a href="#about">من نحن</a></li>
-      <li><a href="#products">منتجاتنا</a></li>
-      <li><a href="#services">خدماتنا</a></li>
-      <li><a href="#contact" class="cta-btn">تواصل معنا</a></li>
-    </ul>
+    <div class="logo">
+      <span data-lang-ar-i>الإكرام </span><span data-lang-ar-i style="color:#f0a500">للتوريدات</span>
+      <span data-lang-en-i>AL-EKRAM </span><span data-lang-en-i style="color:#f0a500">Export</span>
+    </div>
+    <div class="nav-right">
+      <ul>
+        <li><a href="#home"><span data-lang-ar-i>الرئيسية</span><span data-lang-en-i>Home</span></a></li>
+        <li><a href="#about"><span data-lang-ar-i>من نحن</span><span data-lang-en-i>About</span></a></li>
+        <li><a href="#products"><span data-lang-ar-i>منتجاتنا</span><span data-lang-en-i>Products</span></a></li>
+        <li><a href="#services"><span data-lang-ar-i>خدماتنا</span><span data-lang-en-i>Services</span></a></li>
+        <li>
+          <div class="lang-toggle">
+            <button class="lang-btn" id="btnEN" onclick="setLang('en')">EN</button>
+            <button class="lang-btn active" id="btnAR" onclick="setLang('ar')">ع</button>
+          </div>
+        </li>
+        <li><a href="#contact" class="cta-btn"><span data-lang-ar-i>تواصل معنا</span><span data-lang-en-i>Contact Us</span></a></li>
+      </ul>
+      <div class="lang-toggle mobile-lang">
+        <button class="lang-btn" id="btnEN2" onclick="setLang('en')">EN</button>
+        <button class="lang-btn active" id="btnAR2" onclick="setLang('ar')">ع</button>
+      </div>
+    </div>
   </nav>
+
+  <!-- HERO -->
   <section id="home" class="hero">
-    <h1>الإكرام للتوريدات العامة <span>والتصدير</span></h1>
-    <p>شركة متخصصة في توريد وتصدير خامات الأعلاف لمزارع الإنتاج الحيواني والداجني ومصانع الأعلاف في الداخل والخارج منذ أكثر من 15 عاماً</p>
+    <h1 data-lang-ar>الإكرام للتوريدات العامة <span>والتصدير</span></h1>
+    <h1 data-lang-en>AL-EKRAM General Supply <span>& Export</span></h1>
+    <p data-lang-ar>شركة متخصصة في توريد وتصدير خامات الأعلاف لمزارع الإنتاج الحيواني والداجني ومصانع الأعلاف في الداخل والخارج منذ أكثر من 15 عاماً</p>
+    <p data-lang-en>A specialized company in supplying and exporting animal feed raw materials to livestock farms, poultry farms, and feed mills locally and internationally for over 15 years</p>
     <div class="hero-btns">
-      <a href="#contact" class="btn-main">احصل على عرض سعر ←</a>
-      <a href="#products" class="btn-sec">تصفح منتجاتنا</a>
+      <a href="#contact" class="btn-main"><span data-lang-ar-i>احصل على عرض سعر ←</span><span data-lang-en-i>Get a Quote →</span></a>
+      <a href="#products" class="btn-sec"><span data-lang-ar-i>تصفح منتجاتنا</span><span data-lang-en-i>Browse Products</span></a>
     </div>
     <div class="hero-stats">
-      <div class="stat"><strong>+15</strong><span>سنة خبرة</span></div>
-      <div class="stat"><strong>+200</strong><span>عميل موثوق</span></div>
-      <div class="stat"><strong>10+</strong><span>أنواع خامات</span></div>
-      <div class="stat"><strong>دولي</strong><span>تغطية واسعة</span></div>
+      <div class="stat"><strong>+15</strong><span data-lang-ar-i>سنة خبرة</span><span data-lang-en-i>Years Experience</span></div>
+      <div class="stat"><strong>+200</strong><span data-lang-ar-i>عميل موثوق</span><span data-lang-en-i>Trusted Clients</span></div>
+      <div class="stat"><strong>10+</strong><span data-lang-ar-i>أنواع خامات</span><span data-lang-en-i>Product Types</span></div>
+      <div class="stat"><strong data-lang-ar>دولي</strong><strong data-lang-en>Global</strong><span data-lang-ar-i>تغطية واسعة</span><span data-lang-en-i>Wide Coverage</span></div>
     </div>
   </section>
+
+  <!-- ABOUT -->
   <section id="about" class="about">
-    <div class="stitle"><h2>من نحن</h2><p>شريكك الموثوق في صناعة الأعلاف</p></div>
+    <div class="stitle">
+      <h2 data-lang-ar>من نحن</h2><h2 data-lang-en>About Us</h2>
+      <p data-lang-ar>شريكك الموثوق في صناعة الأعلاف</p><p data-lang-en>Your Trusted Partner in the Feed Industry</p>
+    </div>
     <div class="ag">
       <div class="atxt">
-        <h2>خبرة تمتد لأكثر من 15 عاماً</h2>
-        <p>شركة الإكرام للتوريدات العامة والتصدير شركة متخصصة في توريد وتصدير خامات الأعلاف لمزارع الإنتاج الحيواني والداجني ومصانع الأعلاف في الداخل والخارج.</p>
-        <p>نتميز بعلاقات مباشرة مع المنتجين والموردين في الأسواق العالمية مما يمكننا من تقديم أفضل الأسعار وأعلى مستويات الجودة.</p>
+        <h2 data-lang-ar>خبرة تمتد لأكثر من 15 عاماً</h2><h2 data-lang-en>Over 15 Years of Experience</h2>
+        <p data-lang-ar>شركة الإكرام للتوريدات العامة والتصدير شركة متخصصة في توريد وتصدير خامات الأعلاف لمزارع الإنتاج الحيواني والداجني ومصانع الأعلاف في الداخل والخارج.</p>
+        <p data-lang-en>AL-EKRAM General Supply & Export is a specialized company in supplying and exporting animal feed raw materials to livestock farms, poultry farms, and feed mills both domestically and internationally.</p>
+        <p data-lang-ar>نتميز بعلاقات مباشرة مع المنتجين والموردين في الأسواق العالمية مما يمكننا من تقديم أفضل الأسعار وأعلى مستويات الجودة.</p>
+        <p data-lang-en>We are distinguished by our direct relationships with producers and suppliers in global markets, enabling us to offer the best prices and highest quality standards.</p>
         <div class="afeats">
-          <div class="afeat"><h4>🏆 جودة معتمدة</h4><p>خامات تخضع لاختبارات جودة صارمة</p></div>
-          <div class="afeat"><h4>💰 أسعار تنافسية</h4><p>أفضل الأسعار من المصدر مباشرة</p></div>
-          <div class="afeat"><h4>⏱️ توريد منتظم</h4><p>التزام بالكميات والمواعيد المحددة</p></div>
-          <div class="afeat"><h4>🌍 تغطية دولية</h4><p>خدمة محلية وتصدير للخارج</p></div>
+          <div class="afeat"><h4 data-lang-ar>🏆 جودة معتمدة</h4><h4 data-lang-en>🏆 Certified Quality</h4><p data-lang-ar>خامات تخضع لاختبارات جودة صارمة</p><p data-lang-en>Materials undergo rigorous quality testing</p></div>
+          <div class="afeat"><h4 data-lang-ar>💰 أسعار تنافسية</h4><h4 data-lang-en>💰 Competitive Prices</h4><p data-lang-ar>أفضل الأسعار من المصدر مباشرة</p><p data-lang-en>Best prices directly from the source</p></div>
+          <div class="afeat"><h4 data-lang-ar>⏱️ توريد منتظم</h4><h4 data-lang-en>⏱️ Regular Supply</h4><p data-lang-ar>التزام بالكميات والمواعيد المحددة</p><p data-lang-en>Committed to quantities & schedules</p></div>
+          <div class="afeat"><h4 data-lang-ar>🌍 تغطية دولية</h4><h4 data-lang-en>🌍 Global Coverage</h4><p data-lang-ar>خدمة محلية وتصدير للخارج</p><p data-lang-en>Local service & export worldwide</p></div>
         </div>
       </div>
       <div class="aimg">
         <div class="big">🌾</div>
-        <h3>خامات أعلاف عالية الجودة</h3>
-        <p>نوفر أفضل خامات الأعلاف من المصادر العالمية الموثوقة لضمان أعلى معدلات الإنتاجية لمزارعك ومصانعك</p>
+        <h3 data-lang-ar>خامات أعلاف عالية الجودة</h3><h3 data-lang-en>Premium Feed Raw Materials</h3>
+        <p data-lang-ar>نوفر أفضل خامات الأعلاف من المصادر العالمية الموثوقة لضمان أعلى معدلات الإنتاجية لمزارعك ومصانعك</p>
+        <p data-lang-en>We provide the finest feed materials from trusted global sources to ensure maximum productivity for your farms and factories</p>
       </div>
     </div>
   </section>
+
+  <!-- PRODUCTS -->
   <section id="products" class="products">
-    <div class="stitle"><h2>منتجاتنا</h2><p>خامات أعلاف عالية الجودة لجميع احتياجاتك</p></div>
+    <div class="stitle">
+      <h2 data-lang-ar>منتجاتنا</h2><h2 data-lang-en>Our Products</h2>
+      <p data-lang-ar>خامات أعلاف عالية الجودة لجميع احتياجاتك</p><p data-lang-en>High-quality feed raw materials for all your needs</p>
+    </div>
     <div class="pg">
-      <div class="pc"><div class="pi">🌽</div><div class="pinfo"><div class="ptag">حيواني - داجني - مصانع</div><h4>ذرة صفراء علفية</h4><p>مصدر طاقة أساسي وعالي الجودة لجميع أنواع الأعلاف يستخدم في علائق الدواجن والماشية</p></div></div>
-      <div class="pc"><div class="pi">🫘</div><div class="pinfo"><div class="ptag">حيواني - داجني - مصانع</div><h4>كسب فول الصويا</h4><p>مصدر بروتين نباتي عالي الجودة أساسي في تركيبة علائق الدواجن والأبقار وعلائق تسمين الماشية</p></div></div>
-      <div class="pc"><div class="pi">🍊</div><div class="pinfo"><div class="ptag">حيواني - داجني - مصانع</div><h4>قشر البرتقال الفريش</h4><p>قشر برتقال طازج غني بالألياف الغذائية والزيوت العطرية يستخدم في علائق الماشية والدواجن لتحسين الهضم</p></div></div>
-      <div class="pc"><div class="pi">🟠</div><div class="pinfo"><div class="ptag">حيواني - داجني - مصانع</div><h4>قشر البرتقال المجفف</h4><p>قشر برتقال مجفف ومطحون عالي الجودة مصدر ممتاز للألياف والمركبات المضادة للأكسدة يحسن الهضم</p></div></div>
-      <div class="pc"><div class="pi">🌾</div><div class="pinfo"><div class="ptag">حيواني - مصانع</div><h4>ردة القمح (نخالة)</h4><p>مصدر اقتصادي للألياف والبروتين يستخدم في علائق الأبقار والأغنام وتكوين علائق المجترات المتوازنة</p></div></div>
-      <div class="pc"><div class="pi">🫙</div><div class="pinfo"><div class="ptag">حيواني - داجني - مصانع</div><h4>مركزات البروتين النباتية</h4><p>مركزات بروتينية متنوعة من فول الصويا والسمسم وعباد الشمس ترفع كفاءة الإنتاج</p></div></div>
-      <div class="pc"><div class="pi">🧪</div><div class="pinfo"><div class="ptag">مصانع الأعلاف</div><h4>بريمكسات الفيتامينات والمعادن</h4><p>مخاليط فيتامينات ومعادن متوازنة مصممة لتلبية الاحتياجات الغذائية الدقيقة للدواجن والماشية والأسماك</p></div></div>
-      <div class="pc"><div class="pi">🌿</div><div class="pinfo"><div class="ptag">حيواني - مصانع</div><h4>بذور الكتان والسمسم</h4><p>مصدر غني بالأحماض الدهنية أوميغا والبروتين يحسن جودة الإنتاج ويرفع مناعة الحيوانات</p></div></div>
-      <div class="pc"><div class="pi">🏭</div><div class="pinfo"><div class="ptag">مصانع الأعلاف</div><h4>كسب عباد الشمس</h4><p>مصدر بروتين نباتي اقتصادي يستخدم في صناعة الأعلاف المركبة كبديل جزئي لكسب الصويا</p></div></div>
-      <div class="pc"><div class="pi">🚢</div><div class="pinfo"><div class="ptag">تصدير - استيراد</div><h4>خدمات الاستيراد والتصدير</h4><p>نتولى عمليات استيراد وتصدير خامات الأعلاف مع إدارة التخليص الجمركي والشحن والتوثيق الكامل</p></div></div>
+      <div class="pc"><div class="pi">🌽</div><div class="pinfo"><div class="ptag" data-lang-ar>حيواني - داجني - مصانع</div><div class="ptag" data-lang-en>Livestock - Poultry - Mills</div><h4 data-lang-ar>ذرة صفراء علفية</h4><h4 data-lang-en>Yellow Feed Corn</h4><p data-lang-ar>مصدر طاقة أساسي وعالي الجودة لجميع أنواع الأعلاف يستخدم في علائق الدواجن والماشية</p><p data-lang-en>A primary high-quality energy source for all feed types, used in poultry and livestock rations</p></div></div>
+      <div class="pc"><div class="pi">🫘</div><div class="pinfo"><div class="ptag" data-lang-ar>حيواني - داجني - مصانع</div><div class="ptag" data-lang-en>Livestock - Poultry - Mills</div><h4 data-lang-ar>كسب فول الصويا</h4><h4 data-lang-en>Soybean Meal</h4><p data-lang-ar>مصدر بروتين نباتي عالي الجودة أساسي في تركيبة علائق الدواجن والأبقار وعلائق تسمين الماشية</p><p data-lang-en>A high-quality plant protein source essential in poultry, cattle, and fattening rations</p></div></div>
+      <div class="pc"><div class="pi">🍊</div><div class="pinfo"><div class="ptag" data-lang-ar>حيواني - داجني - مصانع</div><div class="ptag" data-lang-en>Livestock - Poultry - Mills</div><h4 data-lang-ar>قشر البرتقال الفريش</h4><h4 data-lang-en>Fresh Orange Peel</h4><p data-lang-ar>قشر برتقال طازج غني بالألياف الغذائية والزيوت العطرية يستخدم في علائق الماشية والدواجن لتحسين الهضم</p><p data-lang-en>Fresh orange peel rich in dietary fiber and essential oils, improving digestion in livestock and poultry</p></div></div>
+      <div class="pc"><div class="pi">🟠</div><div class="pinfo"><div class="ptag" data-lang-ar>حيواني - داجني - مصانع</div><div class="ptag" data-lang-en>Livestock - Poultry - Mills</div><h4 data-lang-ar>قشر البرتقال المجفف</h4><h4 data-lang-en>Dried Orange Peel</h4><p data-lang-ar>قشر برتقال مجفف ومطحون عالي الجودة مصدر ممتاز للألياف والمركبات المضادة للأكسدة يحسن الهضم</p><p data-lang-en>High-quality dried and ground orange peel, an excellent source of fiber and antioxidants</p></div></div>
+      <div class="pc"><div class="pi">🌾</div><div class="pinfo"><div class="ptag" data-lang-ar>حيواني - مصانع</div><div class="ptag" data-lang-en>Livestock - Mills</div><h4 data-lang-ar>ردة القمح (نخالة)</h4><h4 data-lang-en>Wheat Bran</h4><p data-lang-ar>مصدر اقتصادي للألياف والبروتين يستخدم في علائق الأبقار والأغنام وتكوين علائق المجترات المتوازنة</p><p data-lang-en>An economical source of fiber and protein used in cattle and sheep rations and balanced ruminant feeds</p></div></div>
+      <div class="pc"><div class="pi">🫙</div><div class="pinfo"><div class="ptag" data-lang-ar>حيواني - داجني - مصانع</div><div class="ptag" data-lang-en>Livestock - Poultry - Mills</div><h4 data-lang-ar>مركزات البروتين النباتية</h4><h4 data-lang-en>Plant Protein Concentrates</h4><p data-lang-ar>مركزات بروتينية متنوعة من فول الصويا والسمسم وعباد الشمس ترفع كفاءة الإنتاج</p><p data-lang-en>Diverse protein concentrates from soybean, sesame, and sunflower that boost production efficiency</p></div></div>
+      <div class="pc"><div class="pi">🧪</div><div class="pinfo"><div class="ptag" data-lang-ar>مصانع الأعلاف</div><div class="ptag" data-lang-en>Feed Mills</div><h4 data-lang-ar>بريمكسات الفيتامينات والمعادن</h4><h4 data-lang-en>Vitamin & Mineral Premixes</h4><p data-lang-ar>مخاليط فيتامينات ومعادن متوازنة مصممة لتلبية الاحتياجات الغذائية الدقيقة للدواجن والماشية والأسماك</p><p data-lang-en>Balanced vitamin and mineral blends designed for the precise nutritional needs of poultry, livestock, and fish</p></div></div>
+      <div class="pc"><div class="pi">🌿</div><div class="pinfo"><div class="ptag" data-lang-ar>حيواني - مصانع</div><div class="ptag" data-lang-en>Livestock - Mills</div><h4 data-lang-ar>بذور الكتان والسمسم</h4><h4 data-lang-en>Flaxseed & Sesame Seeds</h4><p data-lang-ar>مصدر غني بالأحماض الدهنية أوميغا والبروتين يحسن جودة الإنتاج ويرفع مناعة الحيوانات</p><p data-lang-en>Rich in omega fatty acids and protein, improving production quality and boosting animal immunity</p></div></div>
+      <div class="pc"><div class="pi">🏭</div><div class="pinfo"><div class="ptag" data-lang-ar>مصانع الأعلاف</div><div class="ptag" data-lang-en>Feed Mills</div><h4 data-lang-ar>كسب عباد الشمس</h4><h4 data-lang-en>Sunflower Meal</h4><p data-lang-ar>مصدر بروتين نباتي اقتصادي يستخدم في صناعة الأعلاف المركبة كبديل جزئي لكسب الصويا</p><p data-lang-en>An economical plant protein used in compound feed as a partial substitute for soybean meal</p></div></div>
+      <div class="pc"><div class="pi">🚢</div><div class="pinfo"><div class="ptag" data-lang-ar>تصدير - استيراد</div><div class="ptag" data-lang-en>Export - Import</div><h4 data-lang-ar>خدمات الاستيراد والتصدير</h4><h4 data-lang-en>Import & Export Services</h4><p data-lang-ar>نتولى عمليات استيراد وتصدير خامات الأعلاف مع إدارة التخليص الجمركي والشحن والتوثيق الكامل</p><p data-lang-en>We handle feed material import and export with customs clearance, shipping, and full documentation</p></div></div>
     </div>
   </section>
+
+  <!-- SERVICES -->
   <section id="services" class="services">
-    <div class="stitle"><h2>خدماتنا</h2><p>حلول متكاملة لمزارع الإنتاج الحيواني والداجني ومصانع الأعلاف</p></div>
+    <div class="stitle">
+      <h2 data-lang-ar>خدماتنا</h2><h2 data-lang-en>Our Services</h2>
+      <p data-lang-ar>حلول متكاملة لمزارع الإنتاج الحيواني والداجني ومصانع الأعلاف</p>
+      <p data-lang-en>Integrated solutions for livestock farms, poultry farms, and feed mills</p>
+    </div>
     <div class="sg">
-      <div class="sc"><div class="si">🐄</div><h3>توريد لمزارع الإنتاج الحيواني</h3><p>نوفر جميع خامات الأعلاف اللازمة لمزارع الأبقار والأغنام والإبل بكميات مناسبة وجودة معتمدة</p></div>
-      <div class="sc"><div class="si">🐔</div><h3>توريد لمزارع الدواجن</h3><p>خامات أعلاف دواجن متكاملة تشمل الذرة وكسب الصويا والإضافات الغذائية لتحقيق أفضل معدلات الإنتاج</p></div>
-      <div class="sc"><div class="si">🏭</div><h3>توريد لمصانع الأعلاف</h3><p>توفير الخامات بالكميات الكبيرة المطلوبة لمصانع الأعلاف مع ضمان الاستمرارية والجودة المنتظمة</p></div>
-      <div class="sc"><div class="si">🌍</div><h3>تصدير خامات الأعلاف</h3><p>نصدر خامات الأعلاف للأسواق الخارجية والإقليمية مع توفير كافة وثائق التصدير والشهادات المطلوبة</p></div>
-      <div class="sc"><div class="si">🚢</div><h3>استيراد وتخليص جمركي</h3><p>نتولى استيراد خامات الأعلاف من أفضل الأسواق العالمية وإتمام إجراءات التخليص الجمركي بكفاءة</p></div>
-      <div class="sc"><div class="si">📊</div><h3>استشارات التغذية</h3><p>نقدم استشارات متخصصة في صياغة العلائق الغذائية المتوازنة لتعظيم الإنتاجية وخفض التكلفة</p></div>
+      <div class="sc"><div class="si">🐄</div><h3 data-lang-ar>توريد لمزارع الإنتاج الحيواني</h3><h3 data-lang-en>Livestock Farm Supply</h3><p data-lang-ar>نوفر جميع خامات الأعلاف اللازمة لمزارع الأبقار والأغنام والإبل بكميات مناسبة وجودة معتمدة</p><p data-lang-en>We provide all feed materials for cattle, sheep, and camel farms in proper quantities with certified quality</p></div>
+      <div class="sc"><div class="si">🐔</div><h3 data-lang-ar>توريد لمزارع الدواجن</h3><h3 data-lang-en>Poultry Farm Supply</h3><p data-lang-ar>خامات أعلاف دواجن متكاملة تشمل الذرة وكسب الصويا والإضافات الغذائية لتحقيق أفضل معدلات الإنتاج</p><p data-lang-en>Complete poultry feed materials including corn, soybean meal, and nutritional additives for optimal production</p></div>
+      <div class="sc"><div class="si">🏭</div><h3 data-lang-ar>توريد لمصانع الأعلاف</h3><h3 data-lang-en>Feed Mill Supply</h3><p data-lang-ar>توفير الخامات بالكميات الكبيرة المطلوبة لمصانع الأعلاف مع ضمان الاستمرارية والجودة المنتظمة</p><p data-lang-en>Supplying large quantities to feed mills with guaranteed continuity and consistent quality</p></div>
+      <div class="sc"><div class="si">🌍</div><h3 data-lang-ar>تصدير خامات الأعلاف</h3><h3 data-lang-en>Feed Material Export</h3><p data-lang-ar>نصدر خامات الأعلاف للأسواق الخارجية والإقليمية مع توفير كافة وثائق التصدير والشهادات المطلوبة</p><p data-lang-en>We export feed materials to international markets with all required documents and certificates</p></div>
+      <div class="sc"><div class="si">🚢</div><h3 data-lang-ar>استيراد وتخليص جمركي</h3><h3 data-lang-en>Import & Customs Clearance</h3><p data-lang-ar>نتولى استيراد خامات الأعلاف من أفضل الأسواق العالمية وإتمام إجراءات التخليص الجمركي بكفاءة</p><p data-lang-en>We import feed materials from the best global markets and efficiently handle customs clearance</p></div>
+      <div class="sc"><div class="si">📊</div><h3 data-lang-ar>استشارات التغذية</h3><h3 data-lang-en>Nutrition Consulting</h3><p data-lang-ar>نقدم استشارات متخصصة في صياغة العلائق الغذائية المتوازنة لتعظيم الإنتاجية وخفض التكلفة</p><p data-lang-en>Specialized consulting in formulating balanced feed rations to maximize productivity and reduce costs</p></div>
     </div>
   </section>
+
+  <!-- WHY US -->
   <section class="why">
-    <div class="stitle"><h2 style="color:#fff">لماذا تختارنا؟</h2><p style="color:#cdd8e8">مميزاتنا التي تجعلنا الشريك المفضل لعملائنا</p></div>
+    <div class="stitle">
+      <h2 style="color:#fff" data-lang-ar>لماذا تختارنا؟</h2><h2 style="color:#fff" data-lang-en>Why Choose Us?</h2>
+      <p style="color:#cdd8e8" data-lang-ar>مميزاتنا التي تجعلنا الشريك المفضل لعملائنا</p>
+      <p style="color:#cdd8e8" data-lang-en>The advantages that make us our clients' preferred partner</p>
+    </div>
     <div class="wg">
-      <div class="wc"><div class="wi">🏆</div><h3>جودة معتمدة</h3><p>جميع خاماتنا تخضع لاختبارات جودة صارمة وتتوافق مع المعايير الدولية للتغذية الحيوانية</p></div>
-      <div class="wc"><div class="wi">💰</div><h3>أسعار تنافسية</h3><p>نوفر أفضل الأسعار بفضل علاقاتنا المباشرة مع المنتجين والموردين في الأسواق العالمية</p></div>
-      <div class="wc"><div class="wi">⏱️</div><h3>انتظام التوريد</h3><p>نضمن توفر الكميات المطلوبة في المواعيد المحددة لضمان استمرارية الإنتاج دون توقف</p></div>
-      <div class="wc"><div class="wi">🌍</div><h3>تغطية محلية ودولية</h3><p>نخدم العملاء في الداخل ونصدر للخارج مع إدارة كاملة لعمليات الشحن والتخليص</p></div>
-      <div class="wc"><div class="wi">👨‍🔬</div><h3>خبرة متخصصة</h3><p>فريق من المتخصصين في التغذية الحيوانية وصناعة الأعلاف يضمن تقديم أفضل الحلول</p></div>
-      <div class="wc"><div class="wi">🤝</div><h3>شراكات طويلة الأمد</h3><p>نبني علاقات شراكة مستدامة مع عملائنا مبنية على الثقة والالتزام والشفافية الكاملة</p></div>
+      <div class="wc"><div class="wi">🏆</div><h3 data-lang-ar>جودة معتمدة</h3><h3 data-lang-en>Certified Quality</h3><p data-lang-ar>جميع خاماتنا تخضع لاختبارات جودة صارمة وتتوافق مع المعايير الدولية للتغذية الحيوانية</p><p data-lang-en>All our materials undergo rigorous quality testing and comply with international animal nutrition standards</p></div>
+      <div class="wc"><div class="wi">💰</div><h3 data-lang-ar>أسعار تنافسية</h3><h3 data-lang-en>Competitive Prices</h3><p data-lang-ar>نوفر أفضل الأسعار بفضل علاقاتنا المباشرة مع المنتجين والموردين في الأسواق العالمية</p><p data-lang-en>We offer the best prices thanks to our direct relationships with producers and suppliers globally</p></div>
+      <div class="wc"><div class="wi">⏱️</div><h3 data-lang-ar>انتظام التوريد</h3><h3 data-lang-en>Reliable Supply</h3><p data-lang-ar>نضمن توفر الكميات المطلوبة في المواعيد المحددة لضمان استمرارية الإنتاج دون توقف</p><p data-lang-en>We guarantee required quantities at scheduled times for uninterrupted production continuity</p></div>
+      <div class="wc"><div class="wi">🌍</div><h3 data-lang-ar>تغطية محلية ودولية</h3><h3 data-lang-en>Local & Global Coverage</h3><p data-lang-ar>نخدم العملاء في الداخل ونصدر للخارج مع إدارة كاملة لعمليات الشحن والتخليص</p><p data-lang-en>We serve local clients and export abroad with full shipping and customs management</p></div>
+      <div class="wc"><div class="wi">👨‍🔬</div><h3 data-lang-ar>خبرة متخصصة</h3><h3 data-lang-en>Specialized Expertise</h3><p data-lang-ar>فريق من المتخصصين في التغذية الحيوانية وصناعة الأعلاف يضمن تقديم أفضل الحلول</p><p data-lang-en>A team of specialists in animal nutrition and feed industry ensuring the best solutions</p></div>
+      <div class="wc"><div class="wi">🤝</div><h3 data-lang-ar>شراكات طويلة الأمد</h3><h3 data-lang-en>Long-Term Partnerships</h3><p data-lang-ar>نبني علاقات شراكة مستدامة مع عملائنا مبنية على الثقة والالتزام والشفافية الكاملة</p><p data-lang-en>We build sustainable partnerships based on trust, commitment, and full transparency</p></div>
     </div>
   </section>
+
+  <!-- CONTACT -->
   <section id="contact" class="contact">
-    <div class="stitle"><h2>تواصل معنا</h2><p>احصل على عرض سعر مجاني لاحتياجاتك من خامات الأعلاف</p></div>
+    <div class="stitle">
+      <h2 data-lang-ar>تواصل معنا</h2><h2 data-lang-en>Contact Us</h2>
+      <p data-lang-ar>احصل على عرض سعر مجاني لاحتياجاتك من خامات الأعلاف</p>
+      <p data-lang-en>Get a free quote for your animal feed material needs</p>
+    </div>
     <div class="cg">
       <div class="ci">
-        <h3>بياناتنا</h3>
-        <div class="cit"><div class="cic">📍</div><div><h4>العنوان</h4><p>الفيوم، مصر</p></div></div>
-        <div class="cit"><div class="cic">📞</div><div><h4>هاتف</h4><p>٠١٠٢٦١٠٨١٤٤</p></div></div>
-        <div class="cit"><div class="cic">📧</div><div><h4>البريد الإلكتروني</h4><p>info@elekram.com</p></div></div>
-        <div class="cit"><div class="cic">🕐</div><div><h4>ساعات العمل</h4><p>السبت - الخميس: 8 ص - 5 م</p></div></div>
+        <h3 data-lang-ar>بياناتنا</h3><h3 data-lang-en>Our Info</h3>
+        <div class="cit"><div class="cic">📍</div><div><h4 data-lang-ar>العنوان</h4><h4 data-lang-en>Address</h4><p><a href="https://maps.google.com/?q=Fayoum+Egypt" target="_blank" style="color:inherit;"><span data-lang-ar-i>الفيوم، مصر</span><span data-lang-en-i>Fayoum, Egypt</span></a></p></div></div>
+        <div class="cit"><div class="cic">📞</div><div><h4 data-lang-ar>هاتف</h4><h4 data-lang-en>Phone</h4><p><a href="tel:+201026108144" style="color:inherit;">+2 01026108144</a></p></div></div>
+        <div class="cit"><div class="cic">📧</div><div><h4 data-lang-ar>البريد الإلكتروني</h4><h4 data-lang-en>Email</h4><p><a href="mailto:info@elekram.com" style="color:inherit;">info@elekram.com</a></p></div></div>
+        <div class="cit"><div class="cic">🕐</div><div><h4 data-lang-ar>ساعات العمل</h4><h4 data-lang-en>Working Hours</h4><p data-lang-ar>السبت - الخميس: 8 ص - 5 م</p><p data-lang-en>Saturday - Thursday: 8 AM - 5 PM</p></div></div>
       </div>
       <div class="cf">
-        <h3>أرسل لنا طلبك</h3>
+        <h3 data-lang-ar>أرسل لنا طلبك</h3><h3 data-lang-en>Send Your Request</h3>
         <div class="fr">
-          <div class="fg"><label>الاسم</label><input type="text" placeholder="اسمك الكامل"></div>
-          <div class="fg"><label>الهاتف</label><input type="tel" placeholder="رقم التواصل"></div>
+          <div class="fg"><label data-lang-ar>الاسم</label><label data-lang-en>Name</label><input type="text" id="inpName"></div>
+          <div class="fg"><label data-lang-ar>الهاتف</label><label data-lang-en>Phone</label><input type="tel" id="inpPhone"></div>
         </div>
-        <div class="fg"><label>البريد الإلكتروني</label><input type="email" placeholder="example@email.com"></div>
-        <div class="fg">
-          <label>نوع العميل</label>
-          <select>
-            <option>اختر نوع النشاط</option>
-            <option>مزرعة إنتاج حيواني (أبقار - أغنام)</option>
-            <option>مزرعة دواجن</option>
-            <option>مصنع أعلاف</option>
-            <option>تصدير / استيراد</option>
-            <option>أخرى</option>
-          </select>
-        </div>
-        <div class="fg">
-          <label>الخامة أو المنتج المطلوب</label>
-          <select>
-            <option>اختر الخامة المطلوبة</option>
-            <option>ذرة صفراء علفية</option>
-            <option>كسب فول الصويا</option>
-            <option>قشر البرتقال الفريش</option>
-            <option>قشر البرتقال المجفف</option>
-            <option>ردة القمح (نخالة)</option>
-            <option>مركزات بروتين نباتية</option>
-            <option>بريمكسات فيتامينات ومعادن</option>
-            <option>كسب عباد الشمس</option>
-            <option>بذور الكتان والسمسم</option>
-            <option>متعدد / أخرى</option>
-          </select>
-        </div>
-        <div class="fg"><label>تفاصيل الطلب</label><textarea placeholder="اذكر الكميات المطلوبة والمواصفات والجدول الزمني للتوريد..."></textarea></div>
-        <button class="sb">إرسال الطلب ←</button>
+        <div class="fg"><label data-lang-ar>البريد الإلكتروني</label><label data-lang-en>Email</label><input type="email" placeholder="example@email.com"></div>
+        <div class="fg"><label data-lang-ar>نوع العميل</label><label data-lang-en>Client Type</label><select id="selClient"></select></div>
+        <div class="fg"><label data-lang-ar>الخامة أو المنتج المطلوب</label><label data-lang-en>Requested Material</label><select id="selProduct"></select></div>
+        <div class="fg"><label data-lang-ar>تفاصيل الطلب</label><label data-lang-en>Request Details</label><textarea id="inpDetails"></textarea></div>
+        <button class="sb"><span data-lang-ar-i>إرسال الطلب ←</span><span data-lang-en-i>Send Request →</span></button>
       </div>
     </div>
   </section>
+
+  <!-- FOOTER -->
   <footer>
     <div class="fg2">
       <div class="fco">
-        <h4>الإكرام للتوريدات العامة والتصدير</h4>
-        <p>شركة متخصصة في توريد وتصدير خامات الأعلاف لمزارع الإنتاج الحيواني والداجني ومصانع الأعلاف في الداخل والخارج منذ أكثر من 15 عاماً.</p>
+        <h4 data-lang-ar>الإكرام للتوريدات العامة والتصدير</h4><h4 data-lang-en>AL-EKRAM General Supply & Export</h4>
+        <p data-lang-ar>شركة متخصصة في توريد وتصدير خامات الأعلاف لمزارع الإنتاج الحيواني والداجني ومصانع الأعلاف في الداخل والخارج منذ أكثر من 15 عاماً.</p>
+        <p data-lang-en>A specialized company in supplying and exporting animal feed raw materials to livestock farms, poultry farms, and feed mills locally and internationally for over 15 years.</p>
       </div>
       <div class="fco">
-        <h4>روابط سريعة</h4>
+        <h4 data-lang-ar>روابط سريعة</h4><h4 data-lang-en>Quick Links</h4>
         <ul>
-          <li><a href="#home">الرئيسية</a></li>
-          <li><a href="#about">من نحن</a></li>
-          <li><a href="#products">منتجاتنا</a></li>
-          <li><a href="#services">خدماتنا</a></li>
-          <li><a href="#contact">تواصل معنا</a></li>
+          <li><a href="#home"><span data-lang-ar-i>الرئيسية</span><span data-lang-en-i>Home</span></a></li>
+          <li><a href="#about"><span data-lang-ar-i>من نحن</span><span data-lang-en-i>About Us</span></a></li>
+          <li><a href="#products"><span data-lang-ar-i>منتجاتنا</span><span data-lang-en-i>Products</span></a></li>
+          <li><a href="#services"><span data-lang-ar-i>خدماتنا</span><span data-lang-en-i>Services</span></a></li>
+          <li><a href="#contact"><span data-lang-ar-i>تواصل معنا</span><span data-lang-en-i>Contact Us</span></a></li>
         </ul>
       </div>
       <div class="fco">
-        <h4>خاماتنا</h4>
+        <h4 data-lang-ar>خاماتنا</h4><h4 data-lang-en>Our Materials</h4>
         <ul>
-          <li><a href="#">ذرة صفراء علفية</a></li>
-          <li><a href="#">كسب فول الصويا</a></li>
-          <li><a href="#">قشر البرتقال الفريش</a></li>
-          <li><a href="#">قشر البرتقال المجفف</a></li>
-          <li><a href="#">ردة القمح</a></li>
-          <li><a href="#">بريمكسات</a></li>
+          <li><a href="#products"><span data-lang-ar-i>ذرة صفراء علفية</span><span data-lang-en-i>Yellow Feed Corn</span></a></li>
+          <li><a href="#products"><span data-lang-ar-i>كسب فول الصويا</span><span data-lang-en-i>Soybean Meal</span></a></li>
+          <li><a href="#products"><span data-lang-ar-i>قشر البرتقال الفريش</span><span data-lang-en-i>Fresh Orange Peel</span></a></li>
+          <li><a href="#products"><span data-lang-ar-i>قشر البرتقال المجفف</span><span data-lang-en-i>Dried Orange Peel</span></a></li>
+          <li><a href="#products"><span data-lang-ar-i>ردة القمح</span><span data-lang-en-i>Wheat Bran</span></a></li>
+          <li><a href="#products"><span data-lang-ar-i>بريمكسات</span><span data-lang-en-i>Premixes</span></a></li>
         </ul>
       </div>
       <div class="fco">
-        <h4>تواصل معنا</h4>
+        <h4 data-lang-ar>تواصل معنا</h4><h4 data-lang-en>Contact Us</h4>
         <ul>
-          <li><a href="#">📞 اتصل بنا</a></li>
-          <li><a href="#">📧 راسلنا</a></li>
-          <li><a href="#">💬 واتساب</a></li>
-          <li><a href="#">📍 موقعنا</a></li>
+          <li><a href="tel:+201026108144"><span data-lang-ar-i>📞 اتصل بنا</span><span data-lang-en-i>📞 Call Us</span></a></li>
+          <li><a href="mailto:info@elekram.com"><span data-lang-ar-i>📧 راسلنا</span><span data-lang-en-i>📧 Email Us</span></a></li>
+          <li><a href="https://wa.me/201026108144" target="_blank"><span data-lang-ar-i>💬 واتساب</span><span data-lang-en-i>💬 WhatsApp</span></a></li>
+          <li><a href="https://maps.google.com/?q=Fayoum+Egypt" target="_blank"><span data-lang-ar-i>📍 موقعنا</span><span data-lang-en-i>📍 Our Location</span></a></li>
         </ul>
       </div>
     </div>
-    <div class="fb"><p>جميع الحقوق محفوظة &copy; 2026 <span>شركة الإكرام للتوريدات العامة والتصدير</span></p></div>
+    <div class="fb">
+      <p data-lang-ar>جميع الحقوق محفوظة &copy; 2026 <span>شركة الإكرام للتوريدات العامة والتصدير</span></p>
+      <p data-lang-en>All Rights Reserved &copy; 2026 <span>AL-EKRAM General Supply & Export</span></p>
+    </div>
   </footer>
+
+  <script>
+    const clientAR=['اختر نوع النشاط','مزرعة إنتاج حيواني (أبقار - أغنام)','مزرعة دواجن','مصنع أعلاف','تصدير / استيراد','أخرى'];
+    const clientEN=['Select client type','Livestock Farm (Cattle - Sheep)','Poultry Farm','Feed Mill','Export / Import','Other'];
+    const prodAR=['اختر الخامة المطلوبة','ذرة صفراء علفية','كسب فول الصويا','قشر البرتقال الفريش','قشر البرتقال المجفف','ردة القمح (نخالة)','مركزات بروتين نباتية','بريمكسات فيتامينات ومعادن','كسب عباد الشمس','بذور الكتان والسمسم','متعدد / أخرى'];
+    const prodEN=['Select requested material','Yellow Feed Corn','Soybean Meal','Fresh Orange Peel','Dried Orange Peel','Wheat Bran','Plant Protein Concentrates','Vitamin & Mineral Premixes','Sunflower Meal','Flaxseed & Sesame Seeds','Multiple / Other'];
+    const phAR={inpName:'اسمك الكامل',inpPhone:'رقم التواصل',inpDetails:'اذكر الكميات المطلوبة والمواصفات والجدول الزمني للتوريد...'};
+    const phEN={inpName:'Your full name',inpPhone:'Your phone number',inpDetails:'Specify required quantities, specifications, and delivery schedule...'};
+
+    function fill(id,opts){document.getElementById(id).innerHTML=opts.map((o,i)=>`<option value="${i?o:''}">${o}</option>`).join('');}
+
+    function setLang(lang){
+      const h=document.documentElement,b=document.body;
+      if(lang==='en'){h.lang='en';h.dir='ltr';b.classList.add('en-active');}
+      else{h.lang='ar';h.dir='rtl';b.classList.remove('en-active');}
+      document.querySelectorAll('.lang-btn').forEach(x=>x.classList.toggle('active',(lang==='ar'&&x.textContent==='ع')||(lang==='en'&&x.textContent==='EN')));
+      fill('selClient',lang==='ar'?clientAR:clientEN);
+      fill('selProduct',lang==='ar'?prodAR:prodEN);
+      const p=lang==='ar'?phAR:phEN;
+      Object.keys(p).forEach(id=>{const e=document.getElementById(id);if(e)e.placeholder=p[id];});
+      document.title=lang==='ar'?'الإكرام للتوريدات العامة والتصدير':'AL-EKRAM General Supply & Export';
+    }
+    setLang('ar');
+  </script>
 </body>
 </html>
