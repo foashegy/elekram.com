@@ -10,7 +10,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://elekram.com">
   <meta name="theme-color" content="#1a3a5c">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
+  <link rel="icon" href="logo.png" type="image/png">
   <title>الإكرام للتوريدات العامة والتصدير</title>
   <style>
     *{margin:0;padding:0;box-sizing:border-box;}
@@ -45,7 +45,8 @@
     /* NAV */
     nav{background:#1a3a5c;padding:0 30px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.3);transition:all .3s;}
     nav.scrolled{background:rgba(26,58,92,0.95);backdrop-filter:blur(10px);padding:0 30px;}
-    .logo{color:#fff;font-size:1.3rem;font-weight:700;padding:15px 0;}
+    .logo{color:#fff;font-size:1.3rem;font-weight:700;padding:10px 0;display:flex;align-items:center;gap:10px;}
+    .logo img{height:45px;width:auto;}
     .logo span{color:#f0a500;}
     .nav-right{display:flex;align-items:center;gap:10px;}
     nav ul{list-style:none;display:flex;gap:25px;align-items:center;}
@@ -284,6 +285,7 @@
 <body>
   <!-- Loading Screen -->
   <div class="loader" id="loader">
+    <img src="logo.png" alt="El-Ekram" style="height:80px;margin-bottom:20px;">
     <div class="loader-spinner"></div>
     <div class="loader-text"><span data-lang-ar-i>جاري التحميل...</span><span data-lang-en-i>Loading...</span></div>
   </div>
@@ -293,10 +295,11 @@
 
   <!-- NAV -->
   <nav id="mainNav">
-    <div class="logo">
+    <a href="#home" class="logo">
+      <img src="logo.png" alt="El-Ekram Logo">
       <span data-lang-ar-i>الإكرام</span> <span data-lang-ar-i style="color:#f0a500">للتوريدات والتصدير</span>
       <span data-lang-en-i>AL-EKRAM</span> <span data-lang-en-i style="color:#f0a500">Supply & Export</span>
-    </div>
+    </a>
     <div class="nav-right">
       <ul>
         <li><a href="#home"><span data-lang-ar-i>الرئيسية</span><span data-lang-en-i>Home</span></a></li>
