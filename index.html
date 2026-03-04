@@ -3,12 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AL-EKRAM General Supply & Export - Specialized in supplying and exporting animal feed raw materials to livestock farms, poultry farms, and feed mills. شركة الإكرام للتوريدات العامة والتصدير">
+  <meta name="keywords" content="animal feed, feed raw materials, livestock, poultry, feed mills, Egypt, export, أعلاف, خامات أعلاف, مزارع, دواجن, تصدير">
+  <meta property="og:title" content="AL-EKRAM General Supply & Export | الإكرام للتوريدات العامة والتصدير">
+  <meta property="og:description" content="Specialized in supplying and exporting animal feed raw materials for over 15 years.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://elekram.com">
+  <meta name="theme-color" content="#1a3a5c">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
   <title>الإكرام للتوريدات العامة والتصدير | AL-EKRAM General Supply & Export</title>
   <style>
     *{margin:0;padding:0;box-sizing:border-box;}
-    body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;direction:rtl;background:#f8f9fa;color:#333;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;direction:rtl;background:#f8f9fa;color:#333;overflow-x:hidden;}
     body.en-active{direction:ltr;}
     a{text-decoration:none;color:inherit;}
+
+    /* Loading screen */
+    .loader{position:fixed;top:0;left:0;width:100%;height:100%;background:#1a3a5c;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s,visibility .5s;}
+    .loader.hidden{opacity:0;visibility:hidden;}
+    .loader-spinner{width:50px;height:50px;border:4px solid rgba(255,255,255,0.2);border-top-color:#f0a500;border-radius:50%;animation:spin .8s linear infinite;}
+    .loader-text{color:#fff;margin-top:18px;font-size:1.1rem;font-weight:600;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+
+    /* Scroll progress bar */
+    .scroll-progress{position:fixed;top:0;left:0;width:0;height:3px;background:linear-gradient(90deg,#f0a500,#ff6b35);z-index:200;transition:width .1s;}
 
     /* Language toggle visibility */
     [data-lang-en]{display:none}
@@ -18,116 +37,259 @@
     body.en-active [data-lang-en-i]{display:inline}
     body.en-active [data-lang-ar-i]{display:none}
 
-    /* Language toggle button */
     .lang-toggle{display:flex;align-items:center;gap:0;border-radius:20px;overflow:hidden;border:2px solid rgba(255,255,255,0.3);}
     .lang-btn{background:transparent;color:#cdd8e8;border:none;padding:6px 14px;font-size:0.85rem;cursor:pointer;font-weight:600;transition:all .3s;}
     .lang-btn.active{background:#f0a500;color:#1a3a5c;}
     .lang-btn:hover:not(.active){background:rgba(255,255,255,0.1);}
 
-    nav{background:#1a3a5c;padding:0 30px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.3);}
+    /* NAV */
+    nav{background:#1a3a5c;padding:0 30px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.3);transition:all .3s;}
+    nav.scrolled{background:rgba(26,58,92,0.95);backdrop-filter:blur(10px);padding:0 30px;}
     .logo{color:#fff;font-size:1.3rem;font-weight:700;padding:15px 0;}
     .logo span{color:#f0a500;}
     .nav-right{display:flex;align-items:center;gap:10px;}
     nav ul{list-style:none;display:flex;gap:25px;align-items:center;}
     nav ul li a{color:#cdd8e8;font-size:0.95rem;padding:20px 5px;display:block;border-bottom:3px solid transparent;transition:all .3s;}
-    nav ul li a:hover{color:#fff;border-bottom-color:#f0a500;}
-    .cta-btn{background:#f0a500;color:#1a3a5c!important;padding:10px 20px!important;border-radius:6px;font-weight:700;border-bottom:none!important;}
-    .cta-btn:hover{background:#d4920a!important;}
-    .hero{background:linear-gradient(135deg,#1a3a5c 0%,#2a5f9e 100%);color:#fff;text-align:center;padding:100px 30px;}
-    .hero h1{font-size:2.8rem;margin-bottom:15px;}
+    nav ul li a:hover,nav ul li a:focus{color:#fff;border-bottom-color:#f0a500;}
+    .cta-btn{background:#f0a500;color:#1a3a5c!important;padding:10px 20px!important;border-radius:6px;font-weight:700;border-bottom:none!important;transition:all .3s;}
+    .cta-btn:hover{background:#d4920a!important;transform:scale(1.05);}
+
+    /* Hamburger */
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:10px;background:none;border:none;z-index:200;}
+    .hamburger span{display:block;width:26px;height:3px;background:#fff;border-radius:3px;transition:all .3s;}
+    .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,6px);}
+    .hamburger.active span:nth-child(2){opacity:0;}
+    .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-6px);}
+
+    /* Mobile nav */
+    .mobile-nav{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,37,64,0.97);z-index:150;flex-direction:column;align-items:center;justify-content:center;gap:20px;opacity:0;transition:opacity .3s;}
+    .mobile-nav.open{display:flex;opacity:1;}
+    .mobile-nav a{color:#fff;font-size:1.3rem;padding:12px 30px;border-radius:8px;transition:all .3s;font-weight:600;}
+    .mobile-nav a:hover{background:#f0a500;color:#1a3a5c;}
+    .mobile-nav .lang-toggle{margin-top:20px;border:2px solid rgba(255,255,255,0.4);}
+
+    /* Hero */
+    .hero{background:linear-gradient(135deg,#1a3a5c 0%,#2a5f9e 100%);color:#fff;text-align:center;padding:100px 30px;position:relative;overflow:hidden;}
+    /* Floating particles */
+    .hero-particles{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;}
+    .particle{position:absolute;background:rgba(240,165,0,0.15);border-radius:50%;animation:float-particle linear infinite;}
+    @keyframes float-particle{0%{transform:translateY(100vh) rotate(0deg);opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{transform:translateY(-100px) rotate(720deg);opacity:0;}}
+    .hero h1{font-size:2.8rem;margin-bottom:15px;position:relative;}
     .hero h1 span{color:#f0a500;}
-    .hero p{font-size:1.2rem;color:#cdd8e8;max-width:700px;margin:0 auto 30px;}
-    .hero-btns{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;}
-    .btn-main{background:#f0a500;color:#1a3a5c;padding:14px 32px;border-radius:8px;font-size:1rem;font-weight:700;transition:.3s;}
-    .btn-main:hover{background:#d4920a;}
-    .btn-sec{border:2px solid #fff;color:#fff;padding:12px 30px;border-radius:8px;font-size:1rem;transition:.3s;}
-    .btn-sec:hover{background:#fff;color:#1a3a5c;}
-    .hero-stats{display:flex;gap:40px;justify-content:center;margin-top:60px;flex-wrap:wrap;}
+    /* Typing cursor */
+    .hero p{font-size:1.2rem;color:#cdd8e8;max-width:700px;margin:0 auto 30px;position:relative;min-height:1.8em;}
+    .typing-cursor{display:inline-block;width:2px;height:1.2em;background:#f0a500;vertical-align:text-bottom;animation:blink .7s infinite;}
+    @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+    .hero-btns{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;position:relative;}
+    .btn-main{background:#f0a500;color:#1a3a5c;padding:14px 32px;border-radius:8px;font-size:1rem;font-weight:700;transition:all .3s;display:inline-block;position:relative;overflow:hidden;}
+    .btn-main::after{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(255,255,255,0.2);border-radius:50%;transform:translate(-50%,-50%);transition:width .6s,height .6s;}
+    .btn-main:hover::after{width:300px;height:300px;}
+    .btn-main:hover{background:#d4920a;transform:translateY(-2px);box-shadow:0 6px 20px rgba(240,165,0,0.4);}
+    .btn-sec{border:2px solid #fff;color:#fff;padding:12px 30px;border-radius:8px;font-size:1rem;transition:all .3s;display:inline-block;}
+    .btn-sec:hover{background:#fff;color:#1a3a5c;transform:translateY(-2px);}
+    .hero-stats{display:flex;gap:40px;justify-content:center;margin-top:60px;flex-wrap:wrap;position:relative;}
     .stat{text-align:center;}
     .stat strong{font-size:2.2rem;color:#f0a500;display:block;}
     .stat span{font-size:0.9rem;color:#cdd8e8;}
+
+    /* Sections */
     section{padding:70px 30px;}
     .stitle{text-align:center;margin-bottom:50px;}
-    .stitle h2{font-size:2rem;color:#1a3a5c;margin-bottom:10px;}
+    .stitle h2{font-size:2rem;color:#1a3a5c;margin-bottom:10px;position:relative;display:inline-block;}
+    .stitle h2::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);width:0;height:3px;background:#f0a500;border-radius:2px;transition:width .6s;}
+    .stitle h2.underline-visible::after{width:60px;}
     .stitle p{color:#666;font-size:1rem;}
+
+    /* About */
     .about{background:#fff;}
     .ag{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;max-width:1100px;margin:0 auto;}
     .atxt h2{font-size:1.9rem;color:#1a3a5c;margin-bottom:15px;}
     .atxt p{color:#555;line-height:1.8;margin-bottom:15px;}
     .afeats{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:20px;}
-    .afeat{background:#f0f7ff;border-right:4px solid #f0a500;padding:15px;border-radius:6px;}
+    .afeat{background:#f0f7ff;border-right:4px solid #f0a500;padding:15px;border-radius:6px;transition:all .3s;}
+    .afeat:hover{background:#e3efff;transform:translateX(-4px);}
     body.en-active .afeat{border-right:none;border-left:4px solid #f0a500;}
+    body.en-active .afeat:hover{transform:translateX(4px);}
     .afeat h4{color:#1a3a5c;margin-bottom:5px;font-size:0.95rem;}
     .afeat p{color:#666;font-size:0.85rem;}
-    .aimg{background:linear-gradient(135deg,#1a3a5c,#2a5f9e);border-radius:12px;padding:40px;color:#fff;text-align:center;}
-    .aimg .big{font-size:4rem;margin-bottom:20px;}
-    .aimg h3{font-size:1.5rem;margin-bottom:10px;}
-    .aimg p{color:#cdd8e8;line-height:1.7;}
+    .aimg{background:linear-gradient(135deg,#1a3a5c,#2a5f9e);border-radius:12px;padding:40px;color:#fff;text-align:center;position:relative;overflow:hidden;}
+    .aimg::before{content:'';position:absolute;top:-50%;right:-50%;width:100%;height:100%;background:radial-gradient(circle,rgba(240,165,0,0.1),transparent 70%);animation:pulse-about 6s ease-in-out infinite;}
+    @keyframes pulse-about{0%,100%{transform:scale(1);}50%{transform:scale(1.2);}}
+    .aimg .big{font-size:4rem;margin-bottom:20px;display:inline-block;animation:icon-float 3s ease-in-out infinite;}
+    @keyframes icon-float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+    .aimg h3{font-size:1.5rem;margin-bottom:10px;position:relative;}
+    .aimg p{color:#cdd8e8;line-height:1.7;position:relative;}
+
+    /* Products */
     .products{background:#f8f9fa;}
+    /* Filter tabs */
+    .filter-tabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:30px;max-width:1200px;margin-left:auto;margin-right:auto;}
+    .filter-tab{background:#fff;border:2px solid #e0e0e0;color:#555;padding:8px 20px;border-radius:25px;font-size:0.88rem;cursor:pointer;transition:all .3s;font-family:inherit;font-weight:600;}
+    .filter-tab:hover{border-color:#f0a500;color:#1a3a5c;}
+    .filter-tab.active{background:#f0a500;border-color:#f0a500;color:#1a3a5c;}
     .pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:25px;max-width:1200px;margin:0 auto;}
-    .pc{background:#fff;border-radius:12px;padding:25px;box-shadow:0 2px 12px rgba(0,0,0,0.08);display:flex;gap:15px;align-items:flex-start;transition:.3s;}
-    .pc:hover{transform:translateY(-4px);box-shadow:0 6px 20px rgba(0,0,0,0.12);}
-    .pi{font-size:2.5rem;flex-shrink:0;}
+    .pc{background:#fff;border-radius:12px;padding:25px;box-shadow:0 2px 12px rgba(0,0,0,0.08);display:flex;gap:15px;align-items:flex-start;transition:all .4s;cursor:default;position:relative;overflow:hidden;}
+    .pc::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,#f0a500,#2a5f9e);transform:scaleX(0);transition:transform .3s;transform-origin:left;}
+    body.en-active .pc::before{transform-origin:right;}
+    .pc:hover::before{transform:scaleX(1);}
+    .pc:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(0,0,0,0.15);}
+    .pc.hidden{display:none;}
+    .pc.filtering{animation:card-pop .4s ease;}
+    @keyframes card-pop{0%{opacity:0;transform:scale(0.8);}100%{opacity:1;transform:scale(1);}}
+    .pi{font-size:2.5rem;flex-shrink:0;transition:transform .3s;}
+    .pc:hover .pi{transform:scale(1.2) rotate(-5deg);}
     .ptag{background:#e8f4ff;color:#2a5f9e;font-size:0.75rem;padding:3px 10px;border-radius:20px;margin-bottom:8px;display:inline-block;}
     .pinfo h4{color:#1a3a5c;font-size:1rem;margin-bottom:8px;}
     .pinfo p{color:#666;font-size:0.88rem;line-height:1.6;}
+
+    /* Services */
     .services{background:#fff;}
     .sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:25px;max-width:1200px;margin:0 auto;}
-    .sc{background:#f8f9fa;border-radius:12px;padding:30px;text-align:center;border-top:4px solid #f0a500;transition:.3s;}
-    .sc:hover{background:#fff;box-shadow:0 4px 16px rgba(0,0,0,0.1);}
-    .si{font-size:2.5rem;margin-bottom:15px;}
-    .sc h3{color:#1a3a5c;margin-bottom:10px;font-size:1.05rem;}
-    .sc p{color:#666;font-size:0.88rem;line-height:1.6;}
-    .why{background:linear-gradient(135deg,#1a3a5c,#2a5f9e);padding:70px 30px;}
-    .wg{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:25px;max-width:1200px;margin:0 auto;}
-    .wc{background:rgba(255,255,255,0.1);border-radius:12px;padding:30px;text-align:center;backdrop-filter:blur(5px);transition:.3s;}
-    .wc:hover{background:rgba(255,255,255,0.18);}
-    .wi{font-size:2.5rem;margin-bottom:15px;}
+    .sc{background:#f8f9fa;border-radius:12px;padding:30px;text-align:center;border-top:4px solid #f0a500;transition:all .3s;position:relative;overflow:hidden;}
+    .sc::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:0;background:linear-gradient(to top,rgba(240,165,0,0.05),transparent);transition:height .3s;}
+    .sc:hover::after{height:100%;}
+    .sc:hover{background:#fff;box-shadow:0 6px 20px rgba(0,0,0,0.12);transform:translateY(-6px);}
+    .si{font-size:2.5rem;margin-bottom:15px;display:inline-block;transition:transform .3s;}
+    .sc:hover .si{transform:scale(1.2);}
+    .sc h3{color:#1a3a5c;margin-bottom:10px;font-size:1.05rem;position:relative;}
+    .sc p{color:#666;font-size:0.88rem;line-height:1.6;position:relative;}
+
+    /* Why us */
+    .why{background:linear-gradient(135deg,#1a3a5c,#2a5f9e);padding:70px 30px;position:relative;}
+    .why-particles{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden;}
+    .wg{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:25px;max-width:1200px;margin:0 auto;position:relative;}
+    .wc{background:rgba(255,255,255,0.1);border-radius:12px;padding:30px;text-align:center;backdrop-filter:blur(5px);transition:all .3s;border:1px solid rgba(255,255,255,0.05);}
+    .wc:hover{background:rgba(255,255,255,0.2);transform:translateY(-6px);border-color:rgba(240,165,0,0.3);}
+    .wi{font-size:2.5rem;margin-bottom:15px;display:inline-block;transition:transform .3s;}
+    .wc:hover .wi{transform:scale(1.2) rotate(5deg);}
     .wc h3{color:#fff;margin-bottom:10px;font-size:1.05rem;}
     .wc p{color:#cdd8e8;font-size:0.88rem;line-height:1.6;}
+
+    /* Testimonials */
+    .testimonials{background:#fff;padding:70px 30px;overflow:hidden;}
+    .tslider{max-width:800px;margin:0 auto;position:relative;}
+    .tslide{display:none;text-align:center;animation:slide-in .5s ease;}
+    .tslide.active{display:block;}
+    @keyframes slide-in{from{opacity:0;transform:translateX(30px);}to{opacity:1;transform:translateX(0);}}
+    .tquote{font-size:1.1rem;color:#555;line-height:1.8;margin-bottom:20px;font-style:italic;position:relative;padding:0 40px;}
+    .tquote::before{content:'"';position:absolute;top:-10px;right:0;font-size:4rem;color:#f0a500;opacity:0.3;font-family:serif;}
+    body.en-active .tquote::before{right:auto;left:0;}
+    .tauthor{font-weight:700;color:#1a3a5c;font-size:1rem;}
+    .tauthor span{color:#666;font-weight:400;font-size:0.88rem;}
+    .tstars{color:#f0a500;font-size:1.2rem;margin-bottom:10px;}
+    .tdots{display:flex;gap:8px;justify-content:center;margin-top:25px;}
+    .tdot{width:10px;height:10px;border-radius:50%;background:#ddd;cursor:pointer;transition:all .3s;border:none;}
+    .tdot.active{background:#f0a500;transform:scale(1.3);}
+    .tnav{display:flex;justify-content:center;gap:15px;margin-top:20px;}
+    .tnav button{background:#f0f7ff;border:2px solid #e0e0e0;width:40px;height:40px;border-radius:50%;font-size:1rem;cursor:pointer;transition:all .3s;color:#1a3a5c;}
+    .tnav button:hover{background:#f0a500;border-color:#f0a500;color:#fff;}
+
+    /* Contact */
     .contact{background:#f8f9fa;}
     .cg{display:grid;grid-template-columns:1fr 1.6fr;gap:40px;max-width:1100px;margin:0 auto;}
     .ci{background:#fff;border-radius:12px;padding:35px;box-shadow:0 2px 12px rgba(0,0,0,0.08);}
     .ci h3{color:#1a3a5c;font-size:1.3rem;margin-bottom:25px;padding-bottom:15px;border-bottom:2px solid #f0a500;}
-    .cit{display:flex;gap:15px;align-items:flex-start;margin-bottom:20px;}
-    .cic{font-size:1.5rem;flex-shrink:0;}
+    .cit{display:flex;gap:15px;align-items:flex-start;margin-bottom:20px;transition:all .3s;cursor:pointer;}
+    .cit:hover{transform:translateX(-4px);}
+    body.en-active .cit:hover{transform:translateX(4px);}
+    .cic{font-size:1.5rem;flex-shrink:0;width:45px;height:45px;background:#f0f7ff;border-radius:10px;display:flex;align-items:center;justify-content:center;transition:all .3s;}
+    .cit:hover .cic{background:#f0a500;}
     .cit h4{color:#1a3a5c;margin-bottom:4px;font-size:0.95rem;}
     .cit p{color:#666;font-size:0.88rem;}
     .cf{background:#fff;border-radius:12px;padding:35px;box-shadow:0 2px 12px rgba(0,0,0,0.08);}
     .cf h3{color:#1a3a5c;font-size:1.3rem;margin-bottom:25px;padding-bottom:15px;border-bottom:2px solid #f0a500;}
     .fr{display:grid;grid-template-columns:1fr 1fr;gap:15px;}
-    .fg{margin-bottom:15px;}
+    .fg{margin-bottom:15px;position:relative;}
     .fg label{display:block;color:#1a3a5c;font-weight:600;font-size:0.9rem;margin-bottom:6px;}
-    .fg input,.fg select,.fg textarea{width:100%;padding:12px 15px;border:2px solid #e0e0e0;border-radius:8px;font-size:0.9rem;font-family:inherit;transition:.3s;background:#fafafa;}
+    .fg input,.fg select,.fg textarea{width:100%;padding:12px 15px;border:2px solid #e0e0e0;border-radius:8px;font-size:0.9rem;font-family:inherit;transition:all .3s;background:#fafafa;}
     body.en-active .fg input,body.en-active .fg select,body.en-active .fg textarea{direction:ltr;text-align:left;}
-    .fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:#2a5f9e;background:#fff;}
+    .fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:#2a5f9e;background:#fff;box-shadow:0 0 0 3px rgba(42,95,158,0.1);}
     .fg textarea{height:110px;resize:vertical;}
-    .sb{background:#f0a500;color:#1a3a5c;border:none;padding:14px 35px;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;width:100%;transition:.3s;font-family:inherit;}
-    .sb:hover{background:#d4920a;}
+    /* Floating label effect */
+    .fg input:focus+.fg-bar,.fg select:focus+.fg-bar,.fg textarea:focus+.fg-bar{width:100%;}
+    .fg-bar{position:absolute;bottom:0;left:0;width:0;height:2px;background:#f0a500;transition:width .3s;}
+    .sb{background:linear-gradient(135deg,#f0a500,#ff8c00);color:#1a3a5c;border:none;padding:14px 35px;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;width:100%;transition:all .3s;font-family:inherit;position:relative;overflow:hidden;}
+    .sb::after{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(255,255,255,0.2);border-radius:50%;transform:translate(-50%,-50%);transition:width .5s,height .5s;}
+    .sb:hover::after{width:400px;height:400px;}
+    .sb:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(240,165,0,0.4);}
+    .sb:active{transform:translateY(0);}
+    .form-msg{display:none;text-align:center;padding:20px;border-radius:8px;margin-top:15px;font-weight:600;}
+    .form-msg.success{display:block;background:#e8f5e9;color:#2e7d32;}
+    .form-msg.error{display:block;background:#fce4ec;color:#c62828;}
+
+    /* Footer */
     footer{background:#0f2540;color:#cdd8e8;padding:50px 30px 0;}
     .fg2{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1200px;margin:0 auto;padding-bottom:40px;}
     .fco h4{color:#fff;font-size:1rem;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid #f0a500;}
     .fco p{font-size:0.88rem;line-height:1.7;}
     .fco ul{list-style:none;}
     .fco ul li{margin-bottom:10px;}
-    .fco ul li a{color:#cdd8e8;font-size:0.88rem;transition:.3s;}
-    .fco ul li a:hover{color:#f0a500;}
+    .fco ul li a{color:#cdd8e8;font-size:0.88rem;transition:all .3s;}
+    .fco ul li a:hover{color:#f0a500;padding-inline-start:6px;}
     .fb{border-top:1px solid #1e3a5c;text-align:center;padding:20px;font-size:0.85rem;max-width:1200px;margin:0 auto;}
     .fb span{color:#f0a500;}
+
+    /* Floating WhatsApp */
+    .wa-float{position:fixed;bottom:25px;left:25px;z-index:90;background:#25d366;color:#fff;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;box-shadow:0 4px 15px rgba(37,211,102,0.4);transition:all .3s;cursor:pointer;text-decoration:none;}
+    body.en-active .wa-float{left:auto;right:25px;}
+    .wa-float:hover{transform:scale(1.15);box-shadow:0 6px 25px rgba(37,211,102,0.6);}
+    .wa-float .wa-pulse{position:absolute;width:100%;height:100%;border-radius:50%;background:#25d366;animation:wa-ring 2s ease-out infinite;z-index:-1;}
+    @keyframes wa-ring{0%{transform:scale(1);opacity:.6;}100%{transform:scale(1.6);opacity:0;}}
+
+    /* Scroll to top */
+    .scroll-top{position:fixed;bottom:25px;right:25px;z-index:90;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;opacity:0;visibility:hidden;transition:all .3s;box-shadow:0 2px 10px rgba(0,0,0,0.2);background:conic-gradient(#f0a500 var(--scroll-pct,0%),#1a3a5c var(--scroll-pct,0%));color:#fff;font-size:1.2rem;}
+    body.en-active .scroll-top{right:auto;left:25px;}
+    .scroll-top.visible{opacity:1;visibility:visible;}
+    .scroll-top:hover{transform:translateY(-3px);}
+    .scroll-top-inner{width:38px;height:38px;background:#1a3a5c;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .3s;}
+    .scroll-top:hover .scroll-top-inner{background:#f0a500;color:#1a3a5c;}
+
+    /* Scroll animations */
+    .fade-up{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease;}
+    .fade-up.visible{opacity:1;transform:translateY(0);}
+    .stagger-1{transition-delay:.1s;}
+    .stagger-2{transition-delay:.2s;}
+    .stagger-3{transition-delay:.3s;}
+    .stagger-4{transition-delay:.4s;}
+    .stagger-5{transition-delay:.5s;}
+
+    /* Active nav link */
+    nav ul li a.active-link{color:#fff;border-bottom-color:#f0a500;}
 
     .mobile-lang{display:none;}
     @media(max-width:900px){
       .ag,.cg{grid-template-columns:1fr;}
       .fg2{grid-template-columns:1fr 1fr;}
       nav ul{display:none;}
+      .hamburger{display:flex;}
       .mobile-lang{display:flex;}
     }
-    @media(max-width:600px){.hero h1{font-size:1.8rem;}.fg2{grid-template-columns:1fr;}.fr{grid-template-columns:1fr;}.afeats{grid-template-columns:1fr;}}
+    @media(max-width:600px){
+      .hero h1{font-size:1.8rem;}
+      .fg2{grid-template-columns:1fr;}
+      .fr{grid-template-columns:1fr;}
+      .afeats{grid-template-columns:1fr;}
+      .hero{padding:70px 20px;}
+      section{padding:50px 20px;}
+      .hero-stats{gap:25px;}
+      .stat strong{font-size:1.8rem;}
+      .filter-tabs{gap:6px;}
+      .filter-tab{padding:6px 14px;font-size:0.8rem;}
+    }
   </style>
 </head>
 <body>
+  <!-- Loading Screen -->
+  <div class="loader" id="loader">
+    <div class="loader-spinner"></div>
+    <div class="loader-text"><span data-lang-ar-i>جاري التحميل...</span><span data-lang-en-i>Loading...</span></div>
+  </div>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
   <!-- NAV -->
-  <nav>
+  <nav id="mainNav">
     <div class="logo">
       <span data-lang-ar-i>الإكرام </span><span data-lang-ar-i style="color:#f0a500">للتوريدات</span>
       <span data-lang-en-i>AL-EKRAM </span><span data-lang-en-i style="color:#f0a500">Export</span>
@@ -150,48 +312,64 @@
         <button class="lang-btn" id="btnEN2" onclick="setLang('en')">EN</button>
         <button class="lang-btn active" id="btnAR2" onclick="setLang('ar')">ع</button>
       </div>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
 
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#home" onclick="closeMenu()"><span data-lang-ar-i>الرئيسية</span><span data-lang-en-i>Home</span></a>
+    <a href="#about" onclick="closeMenu()"><span data-lang-ar-i>من نحن</span><span data-lang-en-i>About</span></a>
+    <a href="#products" onclick="closeMenu()"><span data-lang-ar-i>منتجاتنا</span><span data-lang-en-i>Products</span></a>
+    <a href="#services" onclick="closeMenu()"><span data-lang-ar-i>خدماتنا</span><span data-lang-en-i>Services</span></a>
+    <a href="#contact" onclick="closeMenu()"><span data-lang-ar-i>تواصل معنا</span><span data-lang-en-i>Contact Us</span></a>
+    <div class="lang-toggle">
+      <button class="lang-btn" onclick="setLang('en');closeMenu();">EN</button>
+      <button class="lang-btn active" onclick="setLang('ar');closeMenu();">ع</button>
+    </div>
+  </div>
+
   <!-- HERO -->
   <section id="home" class="hero">
+    <div class="hero-particles" id="heroParticles"></div>
     <h1 data-lang-ar>الإكرام للتوريدات العامة <span>والتصدير</span></h1>
     <h1 data-lang-en>AL-EKRAM General Supply <span>& Export</span></h1>
-    <p data-lang-ar>شركة متخصصة في توريد وتصدير خامات الأعلاف لمزارع الإنتاج الحيواني والداجني ومصانع الأعلاف في الداخل والخارج منذ أكثر من 15 عاماً</p>
-    <p data-lang-en>A specialized company in supplying and exporting animal feed raw materials to livestock farms, poultry farms, and feed mills locally and internationally for over 15 years</p>
+    <p id="heroTyping"></p>
     <div class="hero-btns">
       <a href="#contact" class="btn-main"><span data-lang-ar-i>احصل على عرض سعر ←</span><span data-lang-en-i>Get a Quote →</span></a>
       <a href="#products" class="btn-sec"><span data-lang-ar-i>تصفح منتجاتنا</span><span data-lang-en-i>Browse Products</span></a>
     </div>
     <div class="hero-stats">
-      <div class="stat"><strong>+15</strong><span data-lang-ar-i>سنة خبرة</span><span data-lang-en-i>Years Experience</span></div>
-      <div class="stat"><strong>+200</strong><span data-lang-ar-i>عميل موثوق</span><span data-lang-en-i>Trusted Clients</span></div>
-      <div class="stat"><strong>10+</strong><span data-lang-ar-i>أنواع خامات</span><span data-lang-en-i>Product Types</span></div>
+      <div class="stat"><strong data-counter="15">0</strong><span data-lang-ar-i>سنة خبرة</span><span data-lang-en-i>Years Experience</span></div>
+      <div class="stat"><strong data-counter="200">0</strong><span data-lang-ar-i>عميل موثوق</span><span data-lang-en-i>Trusted Clients</span></div>
+      <div class="stat"><strong data-counter="10">0</strong><span data-lang-ar-i>أنواع خامات</span><span data-lang-en-i>Product Types</span></div>
       <div class="stat"><strong data-lang-ar>دولي</strong><strong data-lang-en>Global</strong><span data-lang-ar-i>تغطية واسعة</span><span data-lang-en-i>Wide Coverage</span></div>
     </div>
   </section>
 
   <!-- ABOUT -->
   <section id="about" class="about">
-    <div class="stitle">
+    <div class="stitle fade-up">
       <h2 data-lang-ar>من نحن</h2><h2 data-lang-en>About Us</h2>
       <p data-lang-ar>شريكك الموثوق في صناعة الأعلاف</p><p data-lang-en>Your Trusted Partner in the Feed Industry</p>
     </div>
     <div class="ag">
-      <div class="atxt">
+      <div class="atxt fade-up">
         <h2 data-lang-ar>خبرة تمتد لأكثر من 15 عاماً</h2><h2 data-lang-en>Over 15 Years of Experience</h2>
         <p data-lang-ar>شركة الإكرام للتوريدات العامة والتصدير شركة متخصصة في توريد وتصدير خامات الأعلاف لمزارع الإنتاج الحيواني والداجني ومصانع الأعلاف في الداخل والخارج.</p>
         <p data-lang-en>AL-EKRAM General Supply & Export is a specialized company in supplying and exporting animal feed raw materials to livestock farms, poultry farms, and feed mills both domestically and internationally.</p>
         <p data-lang-ar>نتميز بعلاقات مباشرة مع المنتجين والموردين في الأسواق العالمية مما يمكننا من تقديم أفضل الأسعار وأعلى مستويات الجودة.</p>
         <p data-lang-en>We are distinguished by our direct relationships with producers and suppliers in global markets, enabling us to offer the best prices and highest quality standards.</p>
         <div class="afeats">
-          <div class="afeat"><h4 data-lang-ar>🏆 جودة معتمدة</h4><h4 data-lang-en>🏆 Certified Quality</h4><p data-lang-ar>خامات تخضع لاختبارات جودة صارمة</p><p data-lang-en>Materials undergo rigorous quality testing</p></div>
-          <div class="afeat"><h4 data-lang-ar>💰 أسعار تنافسية</h4><h4 data-lang-en>💰 Competitive Prices</h4><p data-lang-ar>أفضل الأسعار من المصدر مباشرة</p><p data-lang-en>Best prices directly from the source</p></div>
-          <div class="afeat"><h4 data-lang-ar>⏱️ توريد منتظم</h4><h4 data-lang-en>⏱️ Regular Supply</h4><p data-lang-ar>التزام بالكميات والمواعيد المحددة</p><p data-lang-en>Committed to quantities & schedules</p></div>
-          <div class="afeat"><h4 data-lang-ar>🌍 تغطية دولية</h4><h4 data-lang-en>🌍 Global Coverage</h4><p data-lang-ar>خدمة محلية وتصدير للخارج</p><p data-lang-en>Local service & export worldwide</p></div>
+          <div class="afeat fade-up stagger-1"><h4 data-lang-ar>🏆 جودة معتمدة</h4><h4 data-lang-en>🏆 Certified Quality</h4><p data-lang-ar>خامات تخضع لاختبارات جودة صارمة</p><p data-lang-en>Materials undergo rigorous quality testing</p></div>
+          <div class="afeat fade-up stagger-2"><h4 data-lang-ar>💰 أسعار تنافسية</h4><h4 data-lang-en>💰 Competitive Prices</h4><p data-lang-ar>أفضل الأسعار من المصدر مباشرة</p><p data-lang-en>Best prices directly from the source</p></div>
+          <div class="afeat fade-up stagger-3"><h4 data-lang-ar>⏱️ توريد منتظم</h4><h4 data-lang-en>⏱️ Regular Supply</h4><p data-lang-ar>التزام بالكميات والمواعيد المحددة</p><p data-lang-en>Committed to quantities & schedules</p></div>
+          <div class="afeat fade-up stagger-4"><h4 data-lang-ar>🌍 تغطية دولية</h4><h4 data-lang-en>🌍 Global Coverage</h4><p data-lang-ar>خدمة محلية وتصدير للخارج</p><p data-lang-en>Local service & export worldwide</p></div>
         </div>
       </div>
-      <div class="aimg">
+      <div class="aimg fade-up">
         <div class="big">🌾</div>
         <h3 data-lang-ar>خامات أعلاف عالية الجودة</h3><h3 data-lang-en>Premium Feed Raw Materials</h3>
         <p data-lang-ar>نوفر أفضل خامات الأعلاف من المصادر العالمية الموثوقة لضمان أعلى معدلات الإنتاجية لمزارعك ومصانعك</p>
@@ -202,84 +380,132 @@
 
   <!-- PRODUCTS -->
   <section id="products" class="products">
-    <div class="stitle">
+    <div class="stitle fade-up">
       <h2 data-lang-ar>منتجاتنا</h2><h2 data-lang-en>Our Products</h2>
       <p data-lang-ar>خامات أعلاف عالية الجودة لجميع احتياجاتك</p><p data-lang-en>High-quality feed raw materials for all your needs</p>
     </div>
+    <!-- Filter Tabs -->
+    <div class="filter-tabs fade-up" id="filterTabs">
+      <button class="filter-tab active" data-filter="all" onclick="filterProducts('all')"><span data-lang-ar-i>الكل</span><span data-lang-en-i>All</span></button>
+      <button class="filter-tab" data-filter="livestock" onclick="filterProducts('livestock')"><span data-lang-ar-i>حيواني</span><span data-lang-en-i>Livestock</span></button>
+      <button class="filter-tab" data-filter="poultry" onclick="filterProducts('poultry')"><span data-lang-ar-i>داجني</span><span data-lang-en-i>Poultry</span></button>
+      <button class="filter-tab" data-filter="mills" onclick="filterProducts('mills')"><span data-lang-ar-i>مصانع</span><span data-lang-en-i>Mills</span></button>
+      <button class="filter-tab" data-filter="trade" onclick="filterProducts('trade')"><span data-lang-ar-i>تجارة</span><span data-lang-en-i>Trade</span></button>
+    </div>
     <div class="pg">
-      <div class="pc"><div class="pi">🌽</div><div class="pinfo"><div class="ptag" data-lang-ar>حيواني - داجني - مصانع</div><div class="ptag" data-lang-en>Livestock - Poultry - Mills</div><h4 data-lang-ar>ذرة صفراء علفية</h4><h4 data-lang-en>Yellow Feed Corn</h4><p data-lang-ar>مصدر طاقة أساسي وعالي الجودة لجميع أنواع الأعلاف يستخدم في علائق الدواجن والماشية</p><p data-lang-en>A primary high-quality energy source for all feed types, used in poultry and livestock rations</p></div></div>
-      <div class="pc"><div class="pi">🫘</div><div class="pinfo"><div class="ptag" data-lang-ar>حيواني - داجني - مصانع</div><div class="ptag" data-lang-en>Livestock - Poultry - Mills</div><h4 data-lang-ar>كسب فول الصويا</h4><h4 data-lang-en>Soybean Meal</h4><p data-lang-ar>مصدر بروتين نباتي عالي الجودة أساسي في تركيبة علائق الدواجن والأبقار وعلائق تسمين الماشية</p><p data-lang-en>A high-quality plant protein source essential in poultry, cattle, and fattening rations</p></div></div>
-      <div class="pc"><div class="pi">🍊</div><div class="pinfo"><div class="ptag" data-lang-ar>حيواني - داجني - مصانع</div><div class="ptag" data-lang-en>Livestock - Poultry - Mills</div><h4 data-lang-ar>قشر البرتقال الفريش</h4><h4 data-lang-en>Fresh Orange Peel</h4><p data-lang-ar>قشر برتقال طازج غني بالألياف الغذائية والزيوت العطرية يستخدم في علائق الماشية والدواجن لتحسين الهضم</p><p data-lang-en>Fresh orange peel rich in dietary fiber and essential oils, improving digestion in livestock and poultry</p></div></div>
-      <div class="pc"><div class="pi">🟠</div><div class="pinfo"><div class="ptag" data-lang-ar>حيواني - داجني - مصانع</div><div class="ptag" data-lang-en>Livestock - Poultry - Mills</div><h4 data-lang-ar>قشر البرتقال المجفف</h4><h4 data-lang-en>Dried Orange Peel</h4><p data-lang-ar>قشر برتقال مجفف ومطحون عالي الجودة مصدر ممتاز للألياف والمركبات المضادة للأكسدة يحسن الهضم</p><p data-lang-en>High-quality dried and ground orange peel, an excellent source of fiber and antioxidants</p></div></div>
-      <div class="pc"><div class="pi">🌾</div><div class="pinfo"><div class="ptag" data-lang-ar>حيواني - مصانع</div><div class="ptag" data-lang-en>Livestock - Mills</div><h4 data-lang-ar>ردة القمح (نخالة)</h4><h4 data-lang-en>Wheat Bran</h4><p data-lang-ar>مصدر اقتصادي للألياف والبروتين يستخدم في علائق الأبقار والأغنام وتكوين علائق المجترات المتوازنة</p><p data-lang-en>An economical source of fiber and protein used in cattle and sheep rations and balanced ruminant feeds</p></div></div>
-      <div class="pc"><div class="pi">🫙</div><div class="pinfo"><div class="ptag" data-lang-ar>حيواني - داجني - مصانع</div><div class="ptag" data-lang-en>Livestock - Poultry - Mills</div><h4 data-lang-ar>مركزات البروتين النباتية</h4><h4 data-lang-en>Plant Protein Concentrates</h4><p data-lang-ar>مركزات بروتينية متنوعة من فول الصويا والسمسم وعباد الشمس ترفع كفاءة الإنتاج</p><p data-lang-en>Diverse protein concentrates from soybean, sesame, and sunflower that boost production efficiency</p></div></div>
-      <div class="pc"><div class="pi">🧪</div><div class="pinfo"><div class="ptag" data-lang-ar>مصانع الأعلاف</div><div class="ptag" data-lang-en>Feed Mills</div><h4 data-lang-ar>بريمكسات الفيتامينات والمعادن</h4><h4 data-lang-en>Vitamin & Mineral Premixes</h4><p data-lang-ar>مخاليط فيتامينات ومعادن متوازنة مصممة لتلبية الاحتياجات الغذائية الدقيقة للدواجن والماشية والأسماك</p><p data-lang-en>Balanced vitamin and mineral blends designed for the precise nutritional needs of poultry, livestock, and fish</p></div></div>
-      <div class="pc"><div class="pi">🌿</div><div class="pinfo"><div class="ptag" data-lang-ar>حيواني - مصانع</div><div class="ptag" data-lang-en>Livestock - Mills</div><h4 data-lang-ar>بذور الكتان والسمسم</h4><h4 data-lang-en>Flaxseed & Sesame Seeds</h4><p data-lang-ar>مصدر غني بالأحماض الدهنية أوميغا والبروتين يحسن جودة الإنتاج ويرفع مناعة الحيوانات</p><p data-lang-en>Rich in omega fatty acids and protein, improving production quality and boosting animal immunity</p></div></div>
-      <div class="pc"><div class="pi">🏭</div><div class="pinfo"><div class="ptag" data-lang-ar>مصانع الأعلاف</div><div class="ptag" data-lang-en>Feed Mills</div><h4 data-lang-ar>كسب عباد الشمس</h4><h4 data-lang-en>Sunflower Meal</h4><p data-lang-ar>مصدر بروتين نباتي اقتصادي يستخدم في صناعة الأعلاف المركبة كبديل جزئي لكسب الصويا</p><p data-lang-en>An economical plant protein used in compound feed as a partial substitute for soybean meal</p></div></div>
-      <div class="pc"><div class="pi">🚢</div><div class="pinfo"><div class="ptag" data-lang-ar>تصدير - استيراد</div><div class="ptag" data-lang-en>Export - Import</div><h4 data-lang-ar>خدمات الاستيراد والتصدير</h4><h4 data-lang-en>Import & Export Services</h4><p data-lang-ar>نتولى عمليات استيراد وتصدير خامات الأعلاف مع إدارة التخليص الجمركي والشحن والتوثيق الكامل</p><p data-lang-en>We handle feed material import and export with customs clearance, shipping, and full documentation</p></div></div>
+      <div class="pc fade-up" data-cat="livestock poultry mills"><div class="pi">🌽</div><div class="pinfo"><div class="ptag" data-lang-ar>حيواني - داجني - مصانع</div><div class="ptag" data-lang-en>Livestock - Poultry - Mills</div><h4 data-lang-ar>ذرة صفراء علفية</h4><h4 data-lang-en>Yellow Feed Corn</h4><p data-lang-ar>مصدر طاقة أساسي وعالي الجودة لجميع أنواع الأعلاف يستخدم في علائق الدواجن والماشية</p><p data-lang-en>A primary high-quality energy source for all feed types, used in poultry and livestock rations</p></div></div>
+      <div class="pc fade-up" data-cat="livestock poultry mills"><div class="pi">🫘</div><div class="pinfo"><div class="ptag" data-lang-ar>حيواني - داجني - مصانع</div><div class="ptag" data-lang-en>Livestock - Poultry - Mills</div><h4 data-lang-ar>كسب فول الصويا</h4><h4 data-lang-en>Soybean Meal</h4><p data-lang-ar>مصدر بروتين نباتي عالي الجودة أساسي في تركيبة علائق الدواجن والأبقار وعلائق تسمين الماشية</p><p data-lang-en>A high-quality plant protein source essential in poultry, cattle, and fattening rations</p></div></div>
+      <div class="pc fade-up" data-cat="livestock poultry mills"><div class="pi">🍊</div><div class="pinfo"><div class="ptag" data-lang-ar>حيواني - داجني - مصانع</div><div class="ptag" data-lang-en>Livestock - Poultry - Mills</div><h4 data-lang-ar>قشر البرتقال الفريش</h4><h4 data-lang-en>Fresh Orange Peel</h4><p data-lang-ar>قشر برتقال طازج غني بالألياف الغذائية والزيوت العطرية يستخدم في علائق الماشية والدواجن لتحسين الهضم</p><p data-lang-en>Fresh orange peel rich in dietary fiber and essential oils, improving digestion in livestock and poultry</p></div></div>
+      <div class="pc fade-up" data-cat="livestock poultry mills"><div class="pi">🟠</div><div class="pinfo"><div class="ptag" data-lang-ar>حيواني - داجني - مصانع</div><div class="ptag" data-lang-en>Livestock - Poultry - Mills</div><h4 data-lang-ar>قشر البرتقال المجفف</h4><h4 data-lang-en>Dried Orange Peel</h4><p data-lang-ar>قشر برتقال مجفف ومطحون عالي الجودة مصدر ممتاز للألياف والمركبات المضادة للأكسدة يحسن الهضم</p><p data-lang-en>High-quality dried and ground orange peel, an excellent source of fiber and antioxidants</p></div></div>
+      <div class="pc fade-up" data-cat="livestock mills"><div class="pi">🌾</div><div class="pinfo"><div class="ptag" data-lang-ar>حيواني - مصانع</div><div class="ptag" data-lang-en>Livestock - Mills</div><h4 data-lang-ar>ردة القمح (نخالة)</h4><h4 data-lang-en>Wheat Bran</h4><p data-lang-ar>مصدر اقتصادي للألياف والبروتين يستخدم في علائق الأبقار والأغنام وتكوين علائق المجترات المتوازنة</p><p data-lang-en>An economical source of fiber and protein used in cattle and sheep rations and balanced ruminant feeds</p></div></div>
+      <div class="pc fade-up" data-cat="livestock poultry mills"><div class="pi">🫙</div><div class="pinfo"><div class="ptag" data-lang-ar>حيواني - داجني - مصانع</div><div class="ptag" data-lang-en>Livestock - Poultry - Mills</div><h4 data-lang-ar>مركزات البروتين النباتية</h4><h4 data-lang-en>Plant Protein Concentrates</h4><p data-lang-ar>مركزات بروتينية متنوعة من فول الصويا والسمسم وعباد الشمس ترفع كفاءة الإنتاج</p><p data-lang-en>Diverse protein concentrates from soybean, sesame, and sunflower that boost production efficiency</p></div></div>
+      <div class="pc fade-up" data-cat="mills"><div class="pi">🧪</div><div class="pinfo"><div class="ptag" data-lang-ar>مصانع الأعلاف</div><div class="ptag" data-lang-en>Feed Mills</div><h4 data-lang-ar>بريمكسات الفيتامينات والمعادن</h4><h4 data-lang-en>Vitamin & Mineral Premixes</h4><p data-lang-ar>مخاليط فيتامينات ومعادن متوازنة مصممة لتلبية الاحتياجات الغذائية الدقيقة للدواجن والماشية والأسماك</p><p data-lang-en>Balanced vitamin and mineral blends designed for the precise nutritional needs of poultry, livestock, and fish</p></div></div>
+      <div class="pc fade-up" data-cat="livestock mills"><div class="pi">🌿</div><div class="pinfo"><div class="ptag" data-lang-ar>حيواني - مصانع</div><div class="ptag" data-lang-en>Livestock - Mills</div><h4 data-lang-ar>بذور الكتان والسمسم</h4><h4 data-lang-en>Flaxseed & Sesame Seeds</h4><p data-lang-ar>مصدر غني بالأحماض الدهنية أوميغا والبروتين يحسن جودة الإنتاج ويرفع مناعة الحيوانات</p><p data-lang-en>Rich in omega fatty acids and protein, improving production quality and boosting animal immunity</p></div></div>
+      <div class="pc fade-up" data-cat="mills"><div class="pi">🏭</div><div class="pinfo"><div class="ptag" data-lang-ar>مصانع الأعلاف</div><div class="ptag" data-lang-en>Feed Mills</div><h4 data-lang-ar>كسب عباد الشمس</h4><h4 data-lang-en>Sunflower Meal</h4><p data-lang-ar>مصدر بروتين نباتي اقتصادي يستخدم في صناعة الأعلاف المركبة كبديل جزئي لكسب الصويا</p><p data-lang-en>An economical plant protein used in compound feed as a partial substitute for soybean meal</p></div></div>
+      <div class="pc fade-up" data-cat="trade"><div class="pi">🚢</div><div class="pinfo"><div class="ptag" data-lang-ar>تصدير - استيراد</div><div class="ptag" data-lang-en>Export - Import</div><h4 data-lang-ar>خدمات الاستيراد والتصدير</h4><h4 data-lang-en>Import & Export Services</h4><p data-lang-ar>نتولى عمليات استيراد وتصدير خامات الأعلاف مع إدارة التخليص الجمركي والشحن والتوثيق الكامل</p><p data-lang-en>We handle feed material import and export with customs clearance, shipping, and full documentation</p></div></div>
     </div>
   </section>
 
   <!-- SERVICES -->
   <section id="services" class="services">
-    <div class="stitle">
+    <div class="stitle fade-up">
       <h2 data-lang-ar>خدماتنا</h2><h2 data-lang-en>Our Services</h2>
       <p data-lang-ar>حلول متكاملة لمزارع الإنتاج الحيواني والداجني ومصانع الأعلاف</p>
       <p data-lang-en>Integrated solutions for livestock farms, poultry farms, and feed mills</p>
     </div>
     <div class="sg">
-      <div class="sc"><div class="si">🐄</div><h3 data-lang-ar>توريد لمزارع الإنتاج الحيواني</h3><h3 data-lang-en>Livestock Farm Supply</h3><p data-lang-ar>نوفر جميع خامات الأعلاف اللازمة لمزارع الأبقار والأغنام والإبل بكميات مناسبة وجودة معتمدة</p><p data-lang-en>We provide all feed materials for cattle, sheep, and camel farms in proper quantities with certified quality</p></div>
-      <div class="sc"><div class="si">🐔</div><h3 data-lang-ar>توريد لمزارع الدواجن</h3><h3 data-lang-en>Poultry Farm Supply</h3><p data-lang-ar>خامات أعلاف دواجن متكاملة تشمل الذرة وكسب الصويا والإضافات الغذائية لتحقيق أفضل معدلات الإنتاج</p><p data-lang-en>Complete poultry feed materials including corn, soybean meal, and nutritional additives for optimal production</p></div>
-      <div class="sc"><div class="si">🏭</div><h3 data-lang-ar>توريد لمصانع الأعلاف</h3><h3 data-lang-en>Feed Mill Supply</h3><p data-lang-ar>توفير الخامات بالكميات الكبيرة المطلوبة لمصانع الأعلاف مع ضمان الاستمرارية والجودة المنتظمة</p><p data-lang-en>Supplying large quantities to feed mills with guaranteed continuity and consistent quality</p></div>
-      <div class="sc"><div class="si">🌍</div><h3 data-lang-ar>تصدير خامات الأعلاف</h3><h3 data-lang-en>Feed Material Export</h3><p data-lang-ar>نصدر خامات الأعلاف للأسواق الخارجية والإقليمية مع توفير كافة وثائق التصدير والشهادات المطلوبة</p><p data-lang-en>We export feed materials to international markets with all required documents and certificates</p></div>
-      <div class="sc"><div class="si">🚢</div><h3 data-lang-ar>استيراد وتخليص جمركي</h3><h3 data-lang-en>Import & Customs Clearance</h3><p data-lang-ar>نتولى استيراد خامات الأعلاف من أفضل الأسواق العالمية وإتمام إجراءات التخليص الجمركي بكفاءة</p><p data-lang-en>We import feed materials from the best global markets and efficiently handle customs clearance</p></div>
-      <div class="sc"><div class="si">📊</div><h3 data-lang-ar>استشارات التغذية</h3><h3 data-lang-en>Nutrition Consulting</h3><p data-lang-ar>نقدم استشارات متخصصة في صياغة العلائق الغذائية المتوازنة لتعظيم الإنتاجية وخفض التكلفة</p><p data-lang-en>Specialized consulting in formulating balanced feed rations to maximize productivity and reduce costs</p></div>
+      <div class="sc fade-up stagger-1"><div class="si">🐄</div><h3 data-lang-ar>توريد لمزارع الإنتاج الحيواني</h3><h3 data-lang-en>Livestock Farm Supply</h3><p data-lang-ar>نوفر جميع خامات الأعلاف اللازمة لمزارع الأبقار والأغنام والإبل بكميات مناسبة وجودة معتمدة</p><p data-lang-en>We provide all feed materials for cattle, sheep, and camel farms in proper quantities with certified quality</p></div>
+      <div class="sc fade-up stagger-2"><div class="si">🐔</div><h3 data-lang-ar>توريد لمزارع الدواجن</h3><h3 data-lang-en>Poultry Farm Supply</h3><p data-lang-ar>خامات أعلاف دواجن متكاملة تشمل الذرة وكسب الصويا والإضافات الغذائية لتحقيق أفضل معدلات الإنتاج</p><p data-lang-en>Complete poultry feed materials including corn, soybean meal, and nutritional additives for optimal production</p></div>
+      <div class="sc fade-up stagger-3"><div class="si">🏭</div><h3 data-lang-ar>توريد لمصانع الأعلاف</h3><h3 data-lang-en>Feed Mill Supply</h3><p data-lang-ar>توفير الخامات بالكميات الكبيرة المطلوبة لمصانع الأعلاف مع ضمان الاستمرارية والجودة المنتظمة</p><p data-lang-en>Supplying large quantities to feed mills with guaranteed continuity and consistent quality</p></div>
+      <div class="sc fade-up stagger-1"><div class="si">🌍</div><h3 data-lang-ar>تصدير خامات الأعلاف</h3><h3 data-lang-en>Feed Material Export</h3><p data-lang-ar>نصدر خامات الأعلاف للأسواق الخارجية والإقليمية مع توفير كافة وثائق التصدير والشهادات المطلوبة</p><p data-lang-en>We export feed materials to international markets with all required documents and certificates</p></div>
+      <div class="sc fade-up stagger-2"><div class="si">🚢</div><h3 data-lang-ar>استيراد وتخليص جمركي</h3><h3 data-lang-en>Import & Customs Clearance</h3><p data-lang-ar>نتولى استيراد خامات الأعلاف من أفضل الأسواق العالمية وإتمام إجراءات التخليص الجمركي بكفاءة</p><p data-lang-en>We import feed materials from the best global markets and efficiently handle customs clearance</p></div>
+      <div class="sc fade-up stagger-3"><div class="si">📊</div><h3 data-lang-ar>استشارات التغذية</h3><h3 data-lang-en>Nutrition Consulting</h3><p data-lang-ar>نقدم استشارات متخصصة في صياغة العلائق الغذائية المتوازنة لتعظيم الإنتاجية وخفض التكلفة</p><p data-lang-en>Specialized consulting in formulating balanced feed rations to maximize productivity and reduce costs</p></div>
     </div>
   </section>
 
   <!-- WHY US -->
   <section class="why">
-    <div class="stitle">
+    <div class="why-particles" id="whyParticles"></div>
+    <div class="stitle fade-up">
       <h2 style="color:#fff" data-lang-ar>لماذا تختارنا؟</h2><h2 style="color:#fff" data-lang-en>Why Choose Us?</h2>
       <p style="color:#cdd8e8" data-lang-ar>مميزاتنا التي تجعلنا الشريك المفضل لعملائنا</p>
       <p style="color:#cdd8e8" data-lang-en>The advantages that make us our clients' preferred partner</p>
     </div>
     <div class="wg">
-      <div class="wc"><div class="wi">🏆</div><h3 data-lang-ar>جودة معتمدة</h3><h3 data-lang-en>Certified Quality</h3><p data-lang-ar>جميع خاماتنا تخضع لاختبارات جودة صارمة وتتوافق مع المعايير الدولية للتغذية الحيوانية</p><p data-lang-en>All our materials undergo rigorous quality testing and comply with international animal nutrition standards</p></div>
-      <div class="wc"><div class="wi">💰</div><h3 data-lang-ar>أسعار تنافسية</h3><h3 data-lang-en>Competitive Prices</h3><p data-lang-ar>نوفر أفضل الأسعار بفضل علاقاتنا المباشرة مع المنتجين والموردين في الأسواق العالمية</p><p data-lang-en>We offer the best prices thanks to our direct relationships with producers and suppliers globally</p></div>
-      <div class="wc"><div class="wi">⏱️</div><h3 data-lang-ar>انتظام التوريد</h3><h3 data-lang-en>Reliable Supply</h3><p data-lang-ar>نضمن توفر الكميات المطلوبة في المواعيد المحددة لضمان استمرارية الإنتاج دون توقف</p><p data-lang-en>We guarantee required quantities at scheduled times for uninterrupted production continuity</p></div>
-      <div class="wc"><div class="wi">🌍</div><h3 data-lang-ar>تغطية محلية ودولية</h3><h3 data-lang-en>Local & Global Coverage</h3><p data-lang-ar>نخدم العملاء في الداخل ونصدر للخارج مع إدارة كاملة لعمليات الشحن والتخليص</p><p data-lang-en>We serve local clients and export abroad with full shipping and customs management</p></div>
-      <div class="wc"><div class="wi">👨‍🔬</div><h3 data-lang-ar>خبرة متخصصة</h3><h3 data-lang-en>Specialized Expertise</h3><p data-lang-ar>فريق من المتخصصين في التغذية الحيوانية وصناعة الأعلاف يضمن تقديم أفضل الحلول</p><p data-lang-en>A team of specialists in animal nutrition and feed industry ensuring the best solutions</p></div>
-      <div class="wc"><div class="wi">🤝</div><h3 data-lang-ar>شراكات طويلة الأمد</h3><h3 data-lang-en>Long-Term Partnerships</h3><p data-lang-ar>نبني علاقات شراكة مستدامة مع عملائنا مبنية على الثقة والالتزام والشفافية الكاملة</p><p data-lang-en>We build sustainable partnerships based on trust, commitment, and full transparency</p></div>
+      <div class="wc fade-up stagger-1"><div class="wi">🏆</div><h3 data-lang-ar>جودة معتمدة</h3><h3 data-lang-en>Certified Quality</h3><p data-lang-ar>جميع خاماتنا تخضع لاختبارات جودة صارمة وتتوافق مع المعايير الدولية للتغذية الحيوانية</p><p data-lang-en>All our materials undergo rigorous quality testing and comply with international animal nutrition standards</p></div>
+      <div class="wc fade-up stagger-2"><div class="wi">💰</div><h3 data-lang-ar>أسعار تنافسية</h3><h3 data-lang-en>Competitive Prices</h3><p data-lang-ar>نوفر أفضل الأسعار بفضل علاقاتنا المباشرة مع المنتجين والموردين في الأسواق العالمية</p><p data-lang-en>We offer the best prices thanks to our direct relationships with producers and suppliers globally</p></div>
+      <div class="wc fade-up stagger-3"><div class="wi">⏱️</div><h3 data-lang-ar>انتظام التوريد</h3><h3 data-lang-en>Reliable Supply</h3><p data-lang-ar>نضمن توفر الكميات المطلوبة في المواعيد المحددة لضمان استمرارية الإنتاج دون توقف</p><p data-lang-en>We guarantee required quantities at scheduled times for uninterrupted production continuity</p></div>
+      <div class="wc fade-up stagger-1"><div class="wi">🌍</div><h3 data-lang-ar>تغطية محلية ودولية</h3><h3 data-lang-en>Local & Global Coverage</h3><p data-lang-ar>نخدم العملاء في الداخل ونصدر للخارج مع إدارة كاملة لعمليات الشحن والتخليص</p><p data-lang-en>We serve local clients and export abroad with full shipping and customs management</p></div>
+      <div class="wc fade-up stagger-2"><div class="wi">👨‍🔬</div><h3 data-lang-ar>خبرة متخصصة</h3><h3 data-lang-en>Specialized Expertise</h3><p data-lang-ar>فريق من المتخصصين في التغذية الحيوانية وصناعة الأعلاف يضمن تقديم أفضل الحلول</p><p data-lang-en>A team of specialists in animal nutrition and feed industry ensuring the best solutions</p></div>
+      <div class="wc fade-up stagger-3"><div class="wi">🤝</div><h3 data-lang-ar>شراكات طويلة الأمد</h3><h3 data-lang-en>Long-Term Partnerships</h3><p data-lang-ar>نبني علاقات شراكة مستدامة مع عملائنا مبنية على الثقة والالتزام والشفافية الكاملة</p><p data-lang-en>We build sustainable partnerships based on trust, commitment, and full transparency</p></div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="testimonials">
+    <div class="stitle fade-up">
+      <h2 data-lang-ar>آراء عملائنا</h2><h2 data-lang-en>Client Testimonials</h2>
+      <p data-lang-ar>ماذا يقول عملاؤنا عن خدماتنا</p><p data-lang-en>What our clients say about our services</p>
+    </div>
+    <div class="tslider fade-up" id="tslider">
+      <div class="tslide active">
+        <div class="tstars">★★★★★</div>
+        <div class="tquote" data-lang-ar>تعاملنا مع شركة الإكرام منذ أكثر من 5 سنوات. جودة الخامات ممتازة والتوريد دائماً في الموعد المحدد. أنصح بشدة بالتعامل معهم.</div>
+        <div class="tquote" data-lang-en>We've worked with AL-EKRAM for over 5 years. Material quality is excellent and delivery is always on time. Highly recommended.</div>
+        <div class="tauthor" data-lang-ar>م. أحمد الشافعي <span>— مزرعة دواجن الأمل</span></div>
+        <div class="tauthor" data-lang-en>Eng. Ahmed El-Shafeay <span>— Al-Amal Poultry Farm</span></div>
+      </div>
+      <div class="tslide">
+        <div class="tstars">★★★★★</div>
+        <div class="tquote" data-lang-ar>أسعار تنافسية جداً مقارنة بالسوق وجودة خامات لا مثيل لها. فريق العمل محترف ومتعاون في كل الأوقات.</div>
+        <div class="tquote" data-lang-en>Very competitive prices compared to the market and unmatched material quality. The team is professional and cooperative at all times.</div>
+        <div class="tauthor" data-lang-ar>د. محمد عبدالله <span>— مصنع أعلاف النيل</span></div>
+        <div class="tauthor" data-lang-en>Dr. Mohamed Abdullah <span>— Nile Feed Mill</span></div>
+      </div>
+      <div class="tslide">
+        <div class="tstars">★★★★★</div>
+        <div class="tquote" data-lang-ar>شركة الإكرام ساعدتنا في تحسين جودة الإنتاج بنسبة كبيرة من خلال توفير خامات عالية الجودة واستشارات تغذية متخصصة.</div>
+        <div class="tquote" data-lang-en>AL-EKRAM helped us significantly improve production quality by providing high-quality materials and specialized nutrition consulting.</div>
+        <div class="tauthor" data-lang-ar>أ. سعيد حسن <span>— مزارع الوادي للإنتاج الحيواني</span></div>
+        <div class="tauthor" data-lang-en>Mr. Saeed Hassan <span>— Al-Wadi Livestock Farms</span></div>
+      </div>
+    </div>
+    <div class="tdots" id="tdots"></div>
+    <div class="tnav">
+      <button onclick="slideTestimonial(-1)">→</button>
+      <button onclick="slideTestimonial(1)">←</button>
     </div>
   </section>
 
   <!-- CONTACT -->
   <section id="contact" class="contact">
-    <div class="stitle">
+    <div class="stitle fade-up">
       <h2 data-lang-ar>تواصل معنا</h2><h2 data-lang-en>Contact Us</h2>
       <p data-lang-ar>احصل على عرض سعر مجاني لاحتياجاتك من خامات الأعلاف</p>
       <p data-lang-en>Get a free quote for your animal feed material needs</p>
     </div>
     <div class="cg">
-      <div class="ci">
+      <div class="ci fade-up">
         <h3 data-lang-ar>بياناتنا</h3><h3 data-lang-en>Our Info</h3>
-        <div class="cit"><div class="cic">📍</div><div><h4 data-lang-ar>العنوان</h4><h4 data-lang-en>Address</h4><p><a href="https://maps.google.com/?q=Fayoum+Egypt" target="_blank" style="color:inherit;"><span data-lang-ar-i>الفيوم، مصر</span><span data-lang-en-i>Fayoum, Egypt</span></a></p></div></div>
+        <div class="cit"><div class="cic">📍</div><div><h4 data-lang-ar>العنوان</h4><h4 data-lang-en>Address</h4><p><a href="https://maps.google.com/?q=Fayoum+Egypt" target="_blank" rel="noopener" style="color:inherit;"><span data-lang-ar-i>الفيوم، مصر</span><span data-lang-en-i>Fayoum, Egypt</span></a></p></div></div>
         <div class="cit"><div class="cic">📞</div><div><h4 data-lang-ar>هاتف</h4><h4 data-lang-en>Phone</h4><p><a href="tel:+201026108144" style="color:inherit;">+2 01026108144</a></p></div></div>
         <div class="cit"><div class="cic">📧</div><div><h4 data-lang-ar>البريد الإلكتروني</h4><h4 data-lang-en>Email</h4><p><a href="mailto:info@elekram.com" style="color:inherit;">info@elekram.com</a></p></div></div>
         <div class="cit"><div class="cic">🕐</div><div><h4 data-lang-ar>ساعات العمل</h4><h4 data-lang-en>Working Hours</h4><p data-lang-ar>السبت - الخميس: 8 ص - 5 م</p><p data-lang-en>Saturday - Thursday: 8 AM - 5 PM</p></div></div>
       </div>
-      <div class="cf">
+      <div class="cf fade-up">
         <h3 data-lang-ar>أرسل لنا طلبك</h3><h3 data-lang-en>Send Your Request</h3>
-        <div class="fr">
-          <div class="fg"><label data-lang-ar>الاسم</label><label data-lang-en>Name</label><input type="text" id="inpName"></div>
-          <div class="fg"><label data-lang-ar>الهاتف</label><label data-lang-en>Phone</label><input type="tel" id="inpPhone"></div>
-        </div>
-        <div class="fg"><label data-lang-ar>البريد الإلكتروني</label><label data-lang-en>Email</label><input type="email" placeholder="example@email.com"></div>
-        <div class="fg"><label data-lang-ar>نوع العميل</label><label data-lang-en>Client Type</label><select id="selClient"></select></div>
-        <div class="fg"><label data-lang-ar>الخامة أو المنتج المطلوب</label><label data-lang-en>Requested Material</label><select id="selProduct"></select></div>
-        <div class="fg"><label data-lang-ar>تفاصيل الطلب</label><label data-lang-en>Request Details</label><textarea id="inpDetails"></textarea></div>
-        <button class="sb"><span data-lang-ar-i>إرسال الطلب ←</span><span data-lang-en-i>Send Request →</span></button>
+        <form id="contactForm" onsubmit="return submitForm(event)">
+          <div class="fr">
+            <div class="fg"><label data-lang-ar for="inpName">الاسم</label><label data-lang-en for="inpName">Name</label><input type="text" id="inpName" required></div>
+            <div class="fg"><label data-lang-ar for="inpPhone">الهاتف</label><label data-lang-en for="inpPhone">Phone</label><input type="tel" id="inpPhone" required></div>
+          </div>
+          <div class="fg"><label data-lang-ar for="inpEmail">البريد الإلكتروني</label><label data-lang-en for="inpEmail">Email</label><input type="email" id="inpEmail" placeholder="example@email.com"></div>
+          <div class="fg"><label data-lang-ar for="selClient">نوع العميل</label><label data-lang-en for="selClient">Client Type</label><select id="selClient" required></select></div>
+          <div class="fg"><label data-lang-ar for="selProduct">الخامة أو المنتج المطلوب</label><label data-lang-en for="selProduct">Requested Material</label><select id="selProduct" required></select></div>
+          <div class="fg"><label data-lang-ar for="inpDetails">تفاصيل الطلب</label><label data-lang-en for="inpDetails">Request Details</label><textarea id="inpDetails"></textarea></div>
+          <button type="submit" class="sb"><span data-lang-ar-i>إرسال عبر واتساب 💬</span><span data-lang-en-i>Send via WhatsApp 💬</span></button>
+        </form>
+        <div id="formMsg" class="form-msg"></div>
       </div>
     </div>
   </section>
@@ -318,8 +544,8 @@
         <ul>
           <li><a href="tel:+201026108144"><span data-lang-ar-i>📞 اتصل بنا</span><span data-lang-en-i>📞 Call Us</span></a></li>
           <li><a href="mailto:info@elekram.com"><span data-lang-ar-i>📧 راسلنا</span><span data-lang-en-i>📧 Email Us</span></a></li>
-          <li><a href="https://wa.me/201026108144" target="_blank"><span data-lang-ar-i>💬 واتساب</span><span data-lang-en-i>💬 WhatsApp</span></a></li>
-          <li><a href="https://maps.google.com/?q=Fayoum+Egypt" target="_blank"><span data-lang-ar-i>📍 موقعنا</span><span data-lang-en-i>📍 Our Location</span></a></li>
+          <li><a href="https://wa.me/201026108144" target="_blank" rel="noopener"><span data-lang-ar-i>💬 واتساب</span><span data-lang-en-i>💬 WhatsApp</span></a></li>
+          <li><a href="https://maps.google.com/?q=Fayoum+Egypt" target="_blank" rel="noopener"><span data-lang-ar-i>📍 موقعنا</span><span data-lang-en-i>📍 Our Location</span></a></li>
         </ul>
       </div>
     </div>
@@ -329,28 +555,276 @@
     </div>
   </footer>
 
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/201026108144" target="_blank" rel="noopener" class="wa-float" aria-label="WhatsApp">
+    <div class="wa-pulse"></div>💬
+  </a>
+
+  <!-- Scroll to Top (circular progress) -->
+  <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0})" aria-label="Scroll to top">
+    <div class="scroll-top-inner">↑</div>
+  </button>
+
   <script>
+    // === DATA ===
     const clientAR=['اختر نوع النشاط','مزرعة إنتاج حيواني (أبقار - أغنام)','مزرعة دواجن','مصنع أعلاف','تصدير / استيراد','أخرى'];
     const clientEN=['Select client type','Livestock Farm (Cattle - Sheep)','Poultry Farm','Feed Mill','Export / Import','Other'];
     const prodAR=['اختر الخامة المطلوبة','ذرة صفراء علفية','كسب فول الصويا','قشر البرتقال الفريش','قشر البرتقال المجفف','ردة القمح (نخالة)','مركزات بروتين نباتية','بريمكسات فيتامينات ومعادن','كسب عباد الشمس','بذور الكتان والسمسم','متعدد / أخرى'];
     const prodEN=['Select requested material','Yellow Feed Corn','Soybean Meal','Fresh Orange Peel','Dried Orange Peel','Wheat Bran','Plant Protein Concentrates','Vitamin & Mineral Premixes','Sunflower Meal','Flaxseed & Sesame Seeds','Multiple / Other'];
-    const phAR={inpName:'اسمك الكامل',inpPhone:'رقم التواصل',inpDetails:'اذكر الكميات المطلوبة والمواصفات والجدول الزمني للتوريد...'};
-    const phEN={inpName:'Your full name',inpPhone:'Your phone number',inpDetails:'Specify required quantities, specifications, and delivery schedule...'};
+    const phAR={inpName:'اسمك الكامل',inpPhone:'رقم التواصل',inpEmail:'example@email.com',inpDetails:'اذكر الكميات المطلوبة والمواصفات والجدول الزمني للتوريد...'};
+    const phEN={inpName:'Your full name',inpPhone:'Your phone number',inpEmail:'example@email.com',inpDetails:'Specify required quantities, specifications, and delivery schedule...'};
+    const heroTextAR='شركة متخصصة في توريد وتصدير خامات الأعلاف لمزارع الإنتاج الحيواني والداجني ومصانع الأعلاف في الداخل والخارج منذ أكثر من 15 عاماً';
+    const heroTextEN='A specialized company in supplying and exporting animal feed raw materials to livestock farms, poultry farms, and feed mills locally and internationally for over 15 years';
 
-    function fill(id,opts){document.getElementById(id).innerHTML=opts.map((o,i)=>`<option value="${i?o:''}">${o}</option>`).join('');}
+    let currentLang='ar';
+    let typingTimeout=null;
+    let currentSlide=0;
+    let slideInterval=null;
 
+    function fill(id,opts){document.getElementById(id).innerHTML=opts.map((o,i)=>'<option value="'+(i?o:'')+'">'+o+'</option>').join('');}
+
+    // === LANGUAGE ===
     function setLang(lang){
-      const h=document.documentElement,b=document.body;
+      currentLang=lang;
+      var h=document.documentElement,b=document.body;
       if(lang==='en'){h.lang='en';h.dir='ltr';b.classList.add('en-active');}
       else{h.lang='ar';h.dir='rtl';b.classList.remove('en-active');}
-      document.querySelectorAll('.lang-btn').forEach(x=>x.classList.toggle('active',(lang==='ar'&&x.textContent==='ع')||(lang==='en'&&x.textContent==='EN')));
+      document.querySelectorAll('.lang-btn').forEach(function(x){x.classList.toggle('active',(lang==='ar'&&x.textContent==='ع')||(lang==='en'&&x.textContent==='EN'));});
       fill('selClient',lang==='ar'?clientAR:clientEN);
       fill('selProduct',lang==='ar'?prodAR:prodEN);
-      const p=lang==='ar'?phAR:phEN;
-      Object.keys(p).forEach(id=>{const e=document.getElementById(id);if(e)e.placeholder=p[id];});
-      document.title=lang==='ar'?'الإكرام للتوريدات العامة والتصدير':'AL-EKRAM General Supply & Export';
+      var p=lang==='ar'?phAR:phEN;
+      Object.keys(p).forEach(function(id){var e=document.getElementById(id);if(e)e.placeholder=p[id];});
+      document.title=lang==='ar'?'الإكرام للتوريدات العامة والتصدير | AL-EKRAM':'AL-EKRAM General Supply & Export | الإكرام';
+      try{localStorage.setItem('elekram-lang',lang);}catch(e){}
+      startTyping();
     }
-    setLang('ar');
+
+    // === TYPING EFFECT ===
+    function startTyping(){
+      if(typingTimeout) clearTimeout(typingTimeout);
+      var el=document.getElementById('heroTyping');
+      var text=currentLang==='ar'?heroTextAR:heroTextEN;
+      el.innerHTML='';
+      var i=0;
+      function type(){
+        if(i<=text.length){
+          el.innerHTML=text.substring(0,i)+'<span class="typing-cursor"></span>';
+          i++;
+          typingTimeout=setTimeout(type,25);
+        }else{
+          // Remove cursor after done
+          setTimeout(function(){
+            el.innerHTML=text;
+          },2000);
+        }
+      }
+      type();
+    }
+
+    // === MOBILE MENU ===
+    function toggleMenu(){
+      document.getElementById('hamburger').classList.toggle('active');
+      document.getElementById('mobileNav').classList.toggle('open');
+      document.body.style.overflow=document.getElementById('mobileNav').classList.contains('open')?'hidden':'';
+    }
+    function closeMenu(){
+      document.getElementById('hamburger').classList.remove('active');
+      document.getElementById('mobileNav').classList.remove('open');
+      document.body.style.overflow='';
+    }
+
+    // === PRODUCT FILTER ===
+    function filterProducts(cat){
+      document.querySelectorAll('.filter-tab').forEach(function(t){t.classList.toggle('active',t.dataset.filter===cat);});
+      document.querySelectorAll('.pc').forEach(function(card){
+        if(cat==='all'||card.dataset.cat.indexOf(cat)!==-1){
+          card.classList.remove('hidden');
+          card.classList.add('filtering');
+          setTimeout(function(){card.classList.remove('filtering');},400);
+        }else{
+          card.classList.add('hidden');
+          card.classList.remove('filtering');
+        }
+      });
+    }
+
+    // === NUMBER COUNTER ===
+    function animateCounters(){
+      document.querySelectorAll('[data-counter]').forEach(function(el){
+        if(el.dataset.counted) return;
+        var target=parseInt(el.dataset.counter);
+        var prefix='+';
+        var suffix=target===10?'+':'';
+        var duration=2000;
+        var start=0;
+        var startTime=null;
+        function step(timestamp){
+          if(!startTime) startTime=timestamp;
+          var progress=Math.min((timestamp-startTime)/duration,1);
+          var eased=1-Math.pow(1-progress,3); // easeOutCubic
+          el.textContent=prefix+Math.floor(eased*target)+suffix;
+          if(progress<1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+        el.dataset.counted='1';
+      });
+    }
+
+    // === TESTIMONIALS ===
+    function initTestimonials(){
+      var slides=document.querySelectorAll('.tslide');
+      var dotsEl=document.getElementById('tdots');
+      dotsEl.innerHTML='';
+      for(var i=0;i<slides.length;i++){
+        var dot=document.createElement('button');
+        dot.className='tdot'+(i===0?' active':'');
+        dot.dataset.idx=i;
+        dot.onclick=function(){goToSlide(parseInt(this.dataset.idx));};
+        dotsEl.appendChild(dot);
+      }
+      slideInterval=setInterval(function(){slideTestimonial(1);},5000);
+    }
+    function goToSlide(idx){
+      var slides=document.querySelectorAll('.tslide');
+      var dots=document.querySelectorAll('.tdot');
+      currentSlide=idx;
+      slides.forEach(function(s,i){s.classList.toggle('active',i===idx);});
+      dots.forEach(function(d,i){d.classList.toggle('active',i===idx);});
+    }
+    function slideTestimonial(dir){
+      var slides=document.querySelectorAll('.tslide');
+      currentSlide=(currentSlide+dir+slides.length)%slides.length;
+      goToSlide(currentSlide);
+      clearInterval(slideInterval);
+      slideInterval=setInterval(function(){slideTestimonial(1);},5000);
+    }
+
+    // === PARTICLES ===
+    function createParticles(containerId,count){
+      var container=document.getElementById(containerId);
+      if(!container) return;
+      for(var i=0;i<count;i++){
+        var p=document.createElement('div');
+        p.className='particle';
+        var size=Math.random()*8+4;
+        p.style.width=size+'px';
+        p.style.height=size+'px';
+        p.style.left=Math.random()*100+'%';
+        p.style.animationDuration=(Math.random()*15+10)+'s';
+        p.style.animationDelay=Math.random()*10+'s';
+        container.appendChild(p);
+      }
+    }
+
+    // === FORM ===
+    function submitForm(e){
+      e.preventDefault();
+      var name=document.getElementById('inpName').value.trim();
+      var phone=document.getElementById('inpPhone').value.trim();
+      var email=document.getElementById('inpEmail').value.trim();
+      var client=document.getElementById('selClient').value;
+      var product=document.getElementById('selProduct').value;
+      var details=document.getElementById('inpDetails').value.trim();
+      if(!name||!phone){
+        var msg=document.getElementById('formMsg');
+        msg.className='form-msg error';
+        msg.textContent=currentLang==='ar'?'يرجى ملء حقل الاسم والهاتف':'Please fill in name and phone fields';
+        return false;
+      }
+      var text=currentLang==='ar'
+        ?'*طلب جديد من موقع الإكرام*%0A%0A*الاسم:* '+name+'%0A*الهاتف:* '+phone
+        :'*New request from AL-EKRAM website*%0A%0A*Name:* '+name+'%0A*Phone:* '+phone;
+      if(email) text+='%0A*'+(currentLang==='ar'?'البريد':'Email')+':* '+email;
+      if(client) text+='%0A*'+(currentLang==='ar'?'نوع العميل':'Client Type')+':* '+client;
+      if(product) text+='%0A*'+(currentLang==='ar'?'المنتج المطلوب':'Requested Product')+':* '+product;
+      if(details) text+='%0A*'+(currentLang==='ar'?'التفاصيل':'Details')+':* '+details;
+      window.open('https://wa.me/201026108144?text='+text,'_blank');
+      var msg=document.getElementById('formMsg');
+      msg.className='form-msg success';
+      msg.textContent=currentLang==='ar'?'تم فتح واتساب لإرسال طلبك!':'WhatsApp opened to send your request!';
+      return false;
+    }
+
+    // === SCROLL HANDLERS ===
+    window.addEventListener('scroll',function(){
+      var scrollY=window.scrollY;
+      var docH=document.documentElement.scrollHeight-window.innerHeight;
+      var pct=docH>0?(scrollY/docH)*100:0;
+
+      // Progress bar
+      document.getElementById('scrollProgress').style.width=pct+'%';
+
+      // Scroll-to-top with circular progress
+      var btn=document.getElementById('scrollTop');
+      btn.classList.toggle('visible',scrollY>400);
+      btn.style.setProperty('--scroll-pct',pct+'%');
+
+      // Nav style
+      document.getElementById('mainNav').classList.toggle('scrolled',scrollY>50);
+
+      // Active nav link
+      var sections=document.querySelectorAll('section[id]');
+      var sy=scrollY+100;
+      sections.forEach(function(sec){
+        var top=sec.offsetTop;
+        var h=sec.offsetHeight;
+        var id=sec.getAttribute('id');
+        var link=document.querySelector('nav ul a[href="#'+id+'"]');
+        if(link){
+          if(sy>=top&&sy<top+h) link.classList.add('active-link');
+          else link.classList.remove('active-link');
+        }
+      });
+    });
+
+    // === INTERSECTION OBSERVER ===
+    var observer=new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          // Animate underline on section titles
+          var h2=entry.target.querySelector('h2');
+          if(h2) h2.classList.add('underline-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+    document.querySelectorAll('.fade-up').forEach(function(el){observer.observe(el);});
+
+    // Counter observer
+    var counterObs=new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          animateCounters();
+          counterObs.unobserve(entry.target);
+        }
+      });
+    },{threshold:0.5});
+    var statsEl=document.querySelector('.hero-stats');
+    if(statsEl) counterObs.observe(statsEl);
+
+    // === INIT ===
+    (function(){
+      // Loading screen
+      window.addEventListener('load',function(){
+        setTimeout(function(){document.getElementById('loader').classList.add('hidden');},600);
+      });
+
+      // Particles
+      createParticles('heroParticles',15);
+      createParticles('whyParticles',10);
+
+      // Testimonials
+      initTestimonials();
+
+      // Language
+      var params=new URLSearchParams(window.location.search);
+      var urlLang=params.get('lang');
+      var lang='ar';
+      if(urlLang==='en') lang='en';
+      else{try{var saved=localStorage.getItem('elekram-lang');if(saved) lang=saved;}catch(e){}}
+      setLang(lang);
+    })();
   </script>
 </body>
 </html>
