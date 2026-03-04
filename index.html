@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AL-EKRAM General Supply & Export - Specialized in supplying and exporting animal feed raw materials to livestock farms, poultry farms, and feed mills. شركة الإكرام للتوريدات العامة والتصدير">
-  <meta name="keywords" content="animal feed, feed raw materials, livestock, poultry, feed mills, Egypt, export, أعلاف, خامات أعلاف, مزارع, دواجن, تصدير">
-  <meta property="og:title" content="AL-EKRAM General Supply & Export | الإكرام للتوريدات العامة والتصدير">
-  <meta property="og:description" content="Specialized in supplying and exporting animal feed raw materials for over 15 years.">
+  <meta name="description" content="شركة الإكرام للتوريدات العامة والتصدير - متخصصون في توريد وتصدير خامات الأعلاف لمزارع الإنتاج الحيواني والداجني ومصانع الأعلاف">
+  <meta name="keywords" content="أعلاف, خامات أعلاف, مزارع, دواجن, تصدير, مصانع أعلاف, مصر, animal feed, feed raw materials, livestock, poultry, export">
+  <meta property="og:title" content="الإكرام للتوريدات العامة والتصدير">
+  <meta property="og:description" content="متخصصون في توريد وتصدير خامات الأعلاف لمزارع الإنتاج الحيواني والداجني ومصانع الأعلاف منذ أكثر من 15 عاماً">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://elekram.com">
   <meta name="theme-color" content="#1a3a5c">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌾</text></svg>">
-  <title>الإكرام للتوريدات العامة والتصدير | AL-EKRAM General Supply & Export</title>
+  <title>الإكرام للتوريدات العامة والتصدير</title>
   <style>
     *{margin:0;padding:0;box-sizing:border-box;}
     html{scroll-behavior:smooth;}
@@ -30,12 +30,12 @@
     .scroll-progress{position:fixed;top:0;left:0;width:0;height:3px;background:linear-gradient(90deg,#f0a500,#ff6b35);z-index:200;transition:width .1s;}
 
     /* Language toggle visibility */
-    [data-lang-en]{display:none}
-    body.en-active [data-lang-en]{display:block}
-    body.en-active [data-lang-ar]{display:none}
-    [data-lang-en-i]{display:none}
-    body.en-active [data-lang-en-i]{display:inline}
-    body.en-active [data-lang-ar-i]{display:none}
+    [data-lang-en]{display:none !important}
+    body.en-active [data-lang-en]{display:block !important}
+    body.en-active [data-lang-ar]{display:none !important}
+    [data-lang-en-i]{display:none !important}
+    body.en-active [data-lang-en-i]{display:inline !important}
+    body.en-active [data-lang-ar-i]{display:none !important}
 
     .lang-toggle{display:flex;align-items:center;gap:0;border-radius:20px;overflow:hidden;border:2px solid rgba(255,255,255,0.3);}
     .lang-btn{background:transparent;color:#cdd8e8;border:none;padding:6px 14px;font-size:0.85rem;cursor:pointer;font-weight:600;transition:all .3s;}
@@ -294,8 +294,8 @@
   <!-- NAV -->
   <nav id="mainNav">
     <div class="logo">
-      <span data-lang-ar-i>الإكرام </span><span data-lang-ar-i style="color:#f0a500">للتوريدات</span>
-      <span data-lang-en-i>AL-EKRAM </span><span data-lang-en-i style="color:#f0a500">Export</span>
+      <span data-lang-ar-i>الإكرام</span> <span data-lang-ar-i style="color:#f0a500">للتوريدات والتصدير</span>
+      <span data-lang-en-i>AL-EKRAM</span> <span data-lang-en-i style="color:#f0a500">Supply & Export</span>
     </div>
     <div class="nav-right">
       <ul>
@@ -606,7 +606,7 @@
       fill('selProduct',lang==='ar'?prodAR:prodEN);
       var p=lang==='ar'?phAR:phEN;
       Object.keys(p).forEach(function(id){var e=document.getElementById(id);if(e)e.placeholder=p[id];});
-      document.title=lang==='ar'?'الإكرام للتوريدات العامة والتصدير | AL-EKRAM':'AL-EKRAM General Supply & Export | الإكرام';
+      document.title=lang==='ar'?'الإكرام للتوريدات العامة والتصدير':'AL-EKRAM General Supply & Export';
       try{localStorage.setItem('elekram-lang',lang);}catch(e){}
       startTyping();
     }
