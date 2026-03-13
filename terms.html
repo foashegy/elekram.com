@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الشروط والأحكام | AL-EKRAM</title>
+  <meta name="description" content="شروط وأحكام استخدام موقع وخدمات شركة الإكرام للتوريدات العامة والتصدير" />
+  <link rel="icon" href="logo.png" type="image/png" />
+  <style>
+    :root {
+      --primary: #2e7d32;
+      --primary-dark: #1b5e20;
+      --primary-light: #4caf50;
+      --accent: #ff8f00;
+      --text-dark: #1a1a1a;
+      --text-mid: #444;
+      --text-light: #777;
+      --bg: #f9fafb;
+      --white: #ffffff;
+      --border: #e0e0e0;
+      --shadow: 0 2px 16px rgba(0,0,0,0.08);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Arial, sans-serif; background: var(--bg); color: var(--text-dark); line-height: 1.8; }
+
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo img { height: 44px; }
+    .nav-logo span { font-size: 1rem; font-weight: 700; color: var(--primary-dark); line-height: 1.3; }
+    .nav-logo span small { display: block; font-size: 0.72rem; font-weight: 400; color: var(--text-light); }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--text-mid); font-size: 0.9rem; transition: color .2s; }
+    .nav-links a:hover { color: var(--primary); }
+    .lang-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .lang-btn:hover { background: var(--primary-dark); }
+
+    .page-hero {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, var(--primary-light) 100%);
+      color: white;
+      padding: 60px 40px;
+      text-align: center;
+    }
+    .page-hero h1 { font-size: 2rem; font-weight: 700; margin-bottom: 10px; }
+    .page-hero p { font-size: 1rem; opacity: 0.85; }
+    .page-hero .updated { margin-top: 12px; font-size: 0.85rem; opacity: 0.7; }
+
+    .content-wrap {
+      max-width: 860px;
+      margin: 48px auto;
+      padding: 0 24px 60px;
+    }
+    .card {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 40px 48px;
+    }
+    .section { margin-bottom: 36px; }
+    .section:last-child { margin-bottom: 0; }
+    .section h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--primary-light);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section h2 .icon { font-size: 1.2rem; }
+    .section p { color: var(--text-mid); font-size: 0.95rem; margin-bottom: 10px; }
+    .section ul { padding-right: 20px; color: var(--text-mid); font-size: 0.95rem; }
+    .section ul li { margin-bottom: 8px; }
+    .highlight-box {
+      background: #f1f8e9;
+      border-right: 4px solid var(--primary);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      color: var(--text-mid);
+      font-size: 0.92rem;
+    }
+    body.en .highlight-box { border-right: none; border-left: 4px solid var(--primary); }
+    .contact-box {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: white;
+      border-radius: 10px;
+      padding: 24px 32px;
+      margin-top: 40px;
+    }
+    .contact-box h3 { font-size: 1rem; margin-bottom: 12px; }
+    .contact-box a { color: #a5d6a7; text-decoration: none; }
+    .contact-box a:hover { text-decoration: underline; }
+    .contact-box p { font-size: 0.9rem; opacity: 0.9; margin-bottom: 6px; }
+
+    [lang="en"] { display: none; }
+    body.en [lang="ar"] { display: none; }
+    body.en [lang="en"] { display: block; }
+    body.en { direction: ltr; }
+    body.en nav { flex-direction: row-reverse; }
+    body.en .section ul { padding-right: 0; padding-left: 20px; }
+
+    footer {
+      background: var(--primary-dark);
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      padding: 20px;
+      font-size: 0.85rem;
+    }
+    footer a { color: #a5d6a7; text-decoration: none; margin: 0 8px; }
+
+    @media (max-width: 600px) {
+      .card { padding: 24px 20px; }
+      .page-hero { padding: 40px 20px; }
+      .page-hero h1 { font-size: 1.5rem; }
+      nav { padding: 12px 20px; }
+      .nav-links { gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="الإكرام" onerror="this.style.display='none'" />
+    <span lang="ar">الإكرام للتوريدات<small>للتوريدات العامة والتصدير</small></span>
+    <span lang="en">AL-EKRAM<small>General Supply & Export</small></span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html" lang="ar">الرئيسية</a>
+    <a href="index.html" lang="en">Home</a>
+    <a href="privacy-policy.html" lang="ar">سياسة الخصوصية</a>
+    <a href="privacy-policy.html" lang="en">Privacy Policy</a>
+    <button class="lang-btn" onclick="toggleLang()">EN / ع</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <h1 lang="ar">📜 الشروط والأحكام</h1>
+  <h1 lang="en">📜 Terms of Service</h1>
+  <p lang="ar">يُرجى قراءة هذه الشروط بعناية قبل التعامل معنا أو استخدام موقعنا</p>
+  <p lang="en">Please read these terms carefully before dealing with us or using our website</p>
+  <p class="updated" lang="ar">آخر تحديث: مارس 2026</p>
+  <p class="updated" lang="en">Last updated: March 2026</p>
+</div>
+
+<!-- CONTENT AR -->
+<div class="content-wrap" lang="ar">
+  <div class="card">
+
+    <div class="section">
+      <h2><span class="icon">📋</span> مقدمة وقبول الشروط</h2>
+      <p>تُحدّد هذه الشروط والأحكام قواعد استخدام موقع <strong>elekram.com</strong> وطبيعة العلاقة التجارية مع شركة <strong>الإكرام للتوريدات العامة والتصدير</strong>.</p>
+      <div class="highlight-box">
+        باستخدامك للموقع أو التواصل معنا أو تقديم طلب شراء أو توريد، فإنك تُقرّ بموافقتك على هذه الشروط كاملةً.
+      </div>
+    </div>
+
+    <div class="section">
+      <h2><span class="icon">🏢</span> طبيعة النشاط التجاري</h2>
+      <p>شركة الإكرام شركة متخصصة في <strong>توريد وتصدير خامات الأعلاف</strong> للتعاملات B2B (بين الشركات). خدماتنا موجّهة بصفة أساسية إلى:</p>
+      <ul>
+        <li>مزارع الإنتاج الحيواني والداجني</li>
+        <li>مصانع الأعلاف المركبة</li>
+        <li>تجار الخامات والموزعين</li>
+        <li>جهات الاستيراد والتصدير</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><span class="icon">📦</span> الطلبات والتوريد</h2>
+      <ul>
+        <li>جميع الأسعار المعروضة أو المُرسَلة تُعدّ <strong>عروض أسعار مبدئية</strong> وقابلة للتغيير وفقاً لأسعار السوق ووقت التأكيد</li>
+        <li>يُعدّ الطلب ملزماً فقط بعد <strong>التأكيد الكتابي</strong> من الطرفين وسداد الدفعة المقدّمة المتفق عليها</li>
+        <li>الكميات الدنيا للطلبات تُحدَّد حسب كل خامة واتفاق الطرفين</li>
+        <li>مواعيد التسليم تقريبية وتخضع لظروف الشحن والتخليص الجمركي</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><span class="icon">💳</span> الأسعار والدفع</h2>
+      <ul>
+        <li>الأسعار محددة بالجنيه المصري ما لم يُتّفق على عملة أخرى كتابةً</li>
+        <li>طرق الدفع: تحويل بنكي، شيك، أو نقداً حسب الاتفاق</li>
+        <li>في حال التأخر في السداد، تحتفظ الشركة بحقها في تعليق التوريد أو تعديل شروط التعاقد</li>
+        <li>أسعار الخامات المستوردة قد تتأثر بتغيّرات سعر الصرف والرسوم الجمركية</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><span class="icon">🔬</span> الجودة والمواصفات</h2>
+      <ul>
+        <li>نلتزم بتوريد خامات مطابقة للمواصفات المتفق عليها كتابةً عند التعاقد</li>
+        <li>في حال وجود خلاف على الجودة، يجب الإخطار الكتابي خلال <strong>48 ساعة</strong> من استلام البضاعة</li>
+        <li>يحق للعميل طلب شهادات الجودة وتقارير التحليل المتاحة للخامة المطلوبة</li>
+        <li>الشركة غير مسؤولة عن أي تلف ناجم عن سوء التخزين بعد الاستلام</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><span class="icon">🌍</span> الاستيراد والتصدير</h2>
+      <ul>
+        <li>عمليات الاستيراد تخضع للوائح الجمارك المصرية والجهات الرقابية المختصة</li>
+        <li>العميل مسؤول عن الحصول على التراخيص والتصاريح اللازمة لنشاطه</li>
+        <li>الشركة تتولى إجراءات التخليص الجمركي نيابةً عن العميل بموجب توكيل رسمي عند الاقتضاء</li>
+        <li>أي تأخيرات ناجمة عن الجهات الجمركية أو ظروف الشحن خارج نطاق مسؤوليتنا المباشرة</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><span class="icon">⚖️</span> حدود المسؤولية</h2>
+      <p>لا تتحمل شركة الإكرام المسؤولية عن:</p>
+      <ul>
+        <li>أي خسائر غير مباشرة أو تبعية ناجمة عن تأخر التوريد لأسباب خارجة عن إرادتنا</li>
+        <li>تغيّرات أسعار السوق بعد تأكيد الطلب وقبل التسليم</li>
+        <li>قرارات الاستثمار أو الإنتاج التي يتخذها العميل بناءً على عروض الأسعار المبدئية</li>
+        <li>أي خلل في الإنترنت أو الاتصالات يؤثر على استخدام الموقع</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><span class="icon">🌐</span> استخدام الموقع</h2>
+      <ul>
+        <li>يُمنع استخدام الموقع لأي غرض غير مشروع أو مخالف للقانون المصري</li>
+        <li>المحتوى الموجود على الموقع (نصوص، صور، شعارات) ملكية فكرية للشركة ولا يجوز نسخه أو إعادة نشره بدون إذن</li>
+        <li>الشركة تحتفظ بحق تعديل محتوى الموقع أو إيقافه في أي وقت دون إشعار مسبق</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><span class="icon">🤝</span> تسوية النزاعات</h2>
+      <p>في حال نشوء أي نزاع تجاري، يُفضَّل حله بالتراضي والتفاوض المباشر بين الطرفين أولاً.</p>
+      <p>عند تعذّر ذلك، تُختص <strong>محاكم الفيوم</strong> بالنظر في أي نزاعات تعاقدية تتعلق بعمليات الشركة، وتسري أحكام <strong>القانون المصري</strong>.</p>
+    </div>
+
+    <div class="section">
+      <h2><span class="icon">🔄</span> تحديث الشروط</h2>
+      <p>تحتفظ الشركة بحق تعديل هذه الشروط في أي وقت. سيُعلَن عن التعديلات الجوهرية على الموقع. استمرارك في التعامل معنا بعد نشر التعديلات يُعدّ قبولاً ضمنياً لها.</p>
+    </div>
+
+    <div class="contact-box">
+      <h3>📬 للاستفسار عن الشروط والأحكام</h3>
+      <p>📧 البريد الإلكتروني: <a href="/cdn-cgi/l/email-protection#cda4a3aba28da8a1a8a6bfaca0e3aea2a0"><span class="__cf_email__" data-cfemail="83eaede5ecc3e6efe6e8f1e2eeade0ecee">[email&#160;protected]</span></a></p>
+      <p>📞 الهاتف: <a href="tel:+201026108144">+2 010 261 08144</a></p>
+      <p>📍 العنوان: الفيوم، مصر</p>
+      <p>💬 <a href="https://wa.me/201026108144">تواصل عبر واتساب</a></p>
+    </div>
+
+  </div>
+</div>
+
+<!-- CONTENT EN -->
+<div class="content-wrap" lang="en">
+  <div class="card">
+
+    <div class="section">
+      <h2><span class="icon">📋</span> Introduction & Acceptance</h2>
+      <p>These Terms of Service govern the use of <strong>elekram.com</strong> and the commercial relationship with <strong>AL-EKRAM General Supply & Export</strong>.</p>
+      <div class="highlight-box">
+        By using our website, contacting us, or placing a purchase or supply order, you acknowledge your full agreement to these terms.
+      </div>
+    </div>
+
+    <div class="section">
+      <h2><span class="icon">🏢</span> Nature of Business</h2>
+      <p>AL-EKRAM is a specialized B2B company in <strong>animal feed raw material supply and export</strong>. Our services are primarily directed to:</p>
+      <ul>
+        <li>Livestock and poultry farms</li>
+        <li>Compound feed factories</li>
+        <li>Raw material traders and distributors</li>
+        <li>Import and export entities</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><span class="icon">📦</span> Orders & Supply</h2>
+      <ul>
+        <li>All quoted prices are <strong>preliminary offers</strong> subject to change based on market rates and confirmation timing</li>
+        <li>An order is binding only after <strong>written confirmation</strong> from both parties and payment of the agreed deposit</li>
+        <li>Minimum order quantities are determined per material and mutual agreement</li>
+        <li>Delivery timelines are approximate and subject to shipping and customs conditions</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><span class="icon">💳</span> Pricing & Payment</h2>
+      <ul>
+        <li>Prices are in Egyptian Pounds unless otherwise agreed in writing</li>
+        <li>Payment methods: bank transfer, cheque, or cash as agreed</li>
+        <li>In case of delayed payment, the company reserves the right to suspend supply or adjust contract terms</li>
+        <li>Prices for imported materials may be affected by exchange rate fluctuations and customs duties</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><span class="icon">🔬</span> Quality & Specifications</h2>
+      <ul>
+        <li>We are committed to supplying materials conforming to specifications agreed upon in writing at contract stage</li>
+        <li>In case of quality disputes, written notification must be made within <strong>48 hours</strong> of receipt</li>
+        <li>Clients may request available quality certificates and analysis reports for the requested material</li>
+        <li>The company is not responsible for damage resulting from improper storage after delivery</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><span class="icon">🌍</span> Import & Export</h2>
+      <ul>
+        <li>Import operations are subject to Egyptian customs regulations and relevant regulatory authorities</li>
+        <li>The client is responsible for obtaining all licenses and permits required for their activities</li>
+        <li>The company handles customs clearance on behalf of the client under official power of attorney when required</li>
+        <li>Delays caused by customs authorities or shipping conditions are outside our direct responsibility</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><span class="icon">⚖️</span> Limitation of Liability</h2>
+      <p>AL-EKRAM is not liable for:</p>
+      <ul>
+        <li>Indirect or consequential losses resulting from supply delays due to circumstances beyond our control</li>
+        <li>Market price changes after order confirmation and before delivery</li>
+        <li>Investment or production decisions made by the client based on preliminary price quotes</li>
+        <li>Internet or communication failures affecting website use</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><span class="icon">🌐</span> Website Use</h2>
+      <ul>
+        <li>Use of the website for any unlawful purpose or in violation of Egyptian law is prohibited</li>
+        <li>All website content (texts, images, logos) is the intellectual property of the company and may not be copied or republished without permission</li>
+        <li>The company reserves the right to modify or suspend website content at any time without prior notice</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><span class="icon">🤝</span> Dispute Resolution</h2>
+      <p>In the event of any commercial dispute, resolution by mutual agreement and direct negotiation between both parties is preferred first.</p>
+      <p>If this is not possible, the <strong>courts of Fayoum</strong> shall have jurisdiction over any contractual disputes related to the company's operations, and <strong>Egyptian law</strong> shall apply.</p>
+    </div>
+
+    <div class="section">
+      <h2><span class="icon">🔄</span> Terms Updates</h2>
+      <p>The company reserves the right to amend these terms at any time. Material changes will be announced on the website. Continued dealings after publication of changes constitutes implicit acceptance.</p>
+    </div>
+
+    <div class="contact-box">
+      <h3>📬 Contact Us About Terms</h3>
+      <p>📧 Email: <a href="/cdn-cgi/l/email-protection#0f666169604f6a636a647d6e62216c6062"><span class="__cf_email__" data-cfemail="c4adaaa2ab84a1a8a1afb6a5a9eaa7aba9">[email&#160;protected]</span></a></p>
+      <p>📞 Phone: <a href="tel:+201026108144">+2 010 261 08144</a></p>
+      <p>📍 Address: Fayoum, Egypt</p>
+      <p>💬 <a href="https://wa.me/201026108144">Contact via WhatsApp</a></p>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    © 2026 الإكرام للتوريدات العامة والتصدير |
+    <a href="privacy-policy.html">سياسة الخصوصية</a>
+    <a href="terms.html">الشروط والأحكام</a>
+    <a href="index.html">الرئيسية</a>
+  </p>
+</footer>
+
+<script data-cfasyn
